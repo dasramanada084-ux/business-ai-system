@@ -1,216 +1,242 @@
-<! <!DOCTYPE html>
+<! <! <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BizAI Pro - Ultimate Business AI</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#060612;--card:#12122a;--border:#1e1e3f;--accent:#6c63ff;--accent2:#ff6584;--accent3:#43e97b;--text:#e8e8ff;--muted:#6b6b8a;--gold:#ffd700}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
-body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 20%,rgba(108,99,255,.15) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(255,101,132,.1) 0%,transparent 50%);pointer-events:none;z-index:0}
-.header{position:sticky;top:0;z-index:100;background:rgba(6,6,18,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;background:linear-gradient(135deg,#6c63ff,#ff6584,#43e97b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.lang-toggle{display:flex;gap:5px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:4px}
-.lang-btn{padding:4px 12px;border-radius:15px;border:none;background:transparent;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;font-family:'Space Grotesk',sans-serif}
-.lang-btn.active{background:var(--accent);color:white}
-.status-badge{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--accent3);font-weight:500}
-.pulse{width:8px;height:8px;background:var(--accent3);border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
-.hero{position:relative;z-index:1;text-align:center;padding:35px 20px 20px}
-.hero-tag{display:inline-block;padding:5px 15px;background:rgba(108,99,255,.15);border:1px solid rgba(108,99,255,.3);border-radius:20px;font-size:11px;color:#a89fff;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:15px}
-.hero h1{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.1;background:linear-gradient(135deg,#fff 0%,#a89fff 50%,#ff6584 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
-.hero p{color:var(--muted);font-size:14px;max-width:350px;margin:0 auto 20px;line-height:1.6}
-.stats-row{display:flex;justify-content:center;gap:25px}
-.stat{text-align:center}
-.stat-num{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--accent)}
-.stat-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
-.api-setup{position:relative;z-index:1;margin:15px 20px;background:linear-gradient(135deg,rgba(108,99,255,.1),rgba(255,101,132,.05));border:1px solid rgba(108,99,255,.3);border-radius:16px;padding:18px;display:none}
-.api-setup.show{display:block}
-.api-setup h3{font-size:15px;font-weight:700;margin-bottom:5px;color:#a89fff}
-.api-setup p{font-size:12px;color:var(--muted);margin-bottom:12px}
+body{font-family:Arial,sans-serif;background:#0a0a1a;color:#fff;min-height:100vh}
+.header{background:#111130;padding:15px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #222}
+.logo{font-size:22px;font-weight:bold;color:#6c63ff}
+.status{color:#43e97b;font-size:13px}
+.hero{text-align:center;padding:30px 20px 15px;background:#0d0d2a}
+.hero-tag{background:rgba(108,99,255,.2);border:1px solid rgba(108,99,255,.4);border-radius:20px;padding:5px 15px;font-size:11px;color:#a89fff;display:inline-block;margin-bottom:12px}
+.hero h1{font-size:28px;font-weight:900;color:#fff;margin-bottom:8px}
+.hero h1 span{color:#6c63ff}
+.hero p{color:#888;font-size:14px;margin-bottom:15px}
+.stats{display:flex;justify-content:center;gap:30px}
+.stat-num{font-size:22px;font-weight:bold;color:#6c63ff;text-align:center}
+.stat-label{font-size:10px;color:#666;text-align:center}
+
+/* API SETUP */
+.api-box{margin:15px;background:#111130;border:2px dashed #6c63ff;border-radius:15px;padding:20px;display:none}
+.api-box.show{display:block}
+.api-box h3{color:#a89fff;font-size:15px;margin-bottom:5px}
+.api-box p{color:#666;font-size:12px;margin-bottom:12px}
 .api-row{display:flex;gap:8px}
-.api-row input{flex:1;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:13px;outline:none;font-family:'Space Grotesk',sans-serif}
-.api-row input:focus{border-color:var(--accent)}
-.api-row button{padding:10px 18px;background:var(--accent);border:none;border-radius:10px;color:white;font-weight:700;font-size:13px;cursor:pointer;font-family:'Space Grotesk',sans-serif}
-.nav{position:relative;z-index:1;display:flex;overflow-x:auto;padding:10px 20px;gap:8px;scrollbar-width:none}
+.api-row input{flex:1;padding:12px;background:#0a0a1a;border:1px solid #333;border-radius:10px;color:#fff;font-size:13px;outline:none}
+.api-row input:focus{border-color:#6c63ff}
+.save-btn{padding:12px 20px;background:#6c63ff;border:none;border-radius:10px;color:#fff;font-weight:bold;font-size:14px;cursor:pointer;min-width:70px}
+.save-btn:hover{background:#8b83ff}
+
+/* SUCCESS MESSAGE */
+.success-msg{background:rgba(67,233,123,.15);border:1px solid #43e97b;border-radius:10px;padding:12px;margin:15px;color:#43e97b;font-size:14px;font-weight:bold;display:none;text-align:center}
+.success-msg.show{display:block}
+
+/* NAV */
+.nav{display:flex;overflow-x:auto;padding:10px 15px;gap:8px;background:#0d0d1f;scrollbar-width:none}
 .nav::-webkit-scrollbar{display:none}
-.nav-btn{padding:8px 16px;border-radius:25px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .25s;font-family:'Space Grotesk',sans-serif}
-.nav-btn.active{background:var(--accent);color:white;border-color:var(--accent);box-shadow:0 0 20px rgba(108,99,255,.3)}
-.content{position:relative;z-index:1;padding:10px 20px 100px;max-width:700px;margin:0 auto}
+.nav button{padding:8px 15px;border-radius:20px;border:1px solid #333;background:transparent;color:#888;font-size:12px;cursor:pointer;white-space:nowrap}
+.nav button.active{background:#6c63ff;color:#fff;border-color:#6c63ff}
+
+/* CONTENT */
+.content{padding:15px;max-width:700px;margin:0 auto;padding-bottom:80px}
 .tab{display:none}
 .tab.active{display:block}
-.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;margin-bottom:15px}
-.card-head{display:flex;align-items:center;gap:10px;margin-bottom:18px}
-.card-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;background:rgba(108,99,255,.15)}
-.card-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:700}
-.card-sub{font-size:12px;color:var(--muted)}
-.field{margin-bottom:14px}
-.field label{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
-.field input,.field textarea,.field select{width:100%;padding:12px 14px;background:var(--bg);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:14px;outline:none;font-family:'Space Grotesk',sans-serif;transition:border-color .2s}
-.field input:focus,.field textarea:focus{border-color:var(--accent)}
-.field textarea{height:90px;resize:none}
-.field select{appearance:none;cursor:pointer}
-.btn{width:100%;padding:14px;border-radius:12px;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
-.btn-primary{background:linear-gradient(135deg,#6c63ff,#8b83ff);color:white;box-shadow:0 4px 20px rgba(108,99,255,.3)}
-.btn-pink{background:linear-gradient(135deg,#ff6584,#ff8fa3);color:white}
-.btn-green{background:linear-gradient(135deg,#43e97b,#38f9d7);color:#060612}
-.btn-gold{background:linear-gradient(135deg,#ffd700,#ffaa00);color:#060612}
-.btn:hover{transform:translateY(-1px)}
-.result{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;margin-top:12px;font-size:14px;line-height:1.7;color:#c8c8e8;white-space:pre-wrap;display:none;position:relative}
-.result.show{display:block;animation:fadeIn .3s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-.copy-btn{position:absolute;top:10px;right:10px;padding:5px 12px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:11px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:600}
-.loader{display:none;text-align:center;padding:25px}
-.loader.show{display:block}
-.loader-ring{width:35px;height:35px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loader p{font-size:13px;color:var(--muted)}
+
+/* CARDS */
+.card{background:#111130;border:1px solid #222;border-radius:15px;padding:18px;margin-bottom:15px}
+.card-title{font-size:16px;font-weight:bold;margin-bottom:15px;color:#a89fff}
+
+/* TOOL GRID */
 .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:15px}
-.tool-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 12px;text-align:center;cursor:pointer;transition:all .25s}
-.tool-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 25px rgba(108,99,255,.15)}
-.tool-card .t-icon{font-size:26px;margin-bottom:8px}
-.tool-card .t-name{font-size:12px;font-weight:700}
-.tool-card .t-desc{font-size:10px;color:var(--muted);margin-top:3px}
-.chat-box{height:350px;overflow-y:auto;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:15px;margin-bottom:12px;scroll-behavior:smooth}
-.chat-box::-webkit-scrollbar{width:4px}
-.chat-box::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
-.msg{margin-bottom:14px;animation:fadeIn .3s ease}
+.tool-btn{background:#111130;border:1px solid #222;border-radius:12px;padding:15px 10px;text-align:center;cursor:pointer}
+.tool-btn:hover{border-color:#6c63ff}
+.tool-btn .icon{font-size:24px;margin-bottom:6px}
+.tool-btn .name{font-size:12px;font-weight:bold;color:#fff}
+.tool-btn .desc{font-size:10px;color:#666;margin-top:2px}
+
+/* FORM */
+.field{margin-bottom:12px}
+.field label{display:block;font-size:11px;color:#888;margin-bottom:5px;font-weight:bold}
+.field input,.field textarea,.field select{width:100%;padding:11px;background:#0a0a1a;border:1px solid #333;border-radius:10px;color:#fff;font-size:14px;outline:none}
+.field input:focus,.field textarea:focus{border-color:#6c63ff}
+.field textarea{height:85px;resize:none}
+.field select{cursor:pointer}
+
+/* BUTTONS */
+.btn{width:100%;padding:13px;border-radius:10px;border:none;font-size:14px;font-weight:bold;cursor:pointer;margin-bottom:8px}
+.btn-purple{background:#6c63ff;color:#fff}
+.btn-pink{background:#ff6584;color:#fff}
+.btn-green{background:#43e97b;color:#0a0a1a}
+.btn-gold{background:#ffd700;color:#0a0a1a}
+
+/* RESULT */
+.result{background:#0a0a1a;border:1px solid #333;border-radius:10px;padding:15px;margin-top:12px;font-size:14px;line-height:1.7;color:#ccc;white-space:pre-wrap;display:none;position:relative}
+.result.show{display:block}
+.copy-btn{position:absolute;top:8px;right:8px;padding:4px 10px;background:#222;border:1px solid #333;border-radius:6px;color:#888;font-size:11px;cursor:pointer}
+
+/* LOADER */
+.loader{display:none;text-align:center;padding:20px}
+.loader.show{display:block}
+.spin{width:30px;height:30px;border:3px solid #333;border-top-color:#6c63ff;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader p{font-size:13px;color:#888}
+
+/* CHAT */
+.chat-box{height:320px;overflow-y:auto;background:#0a0a1a;border:1px solid #333;border-radius:12px;padding:12px;margin-bottom:10px}
+.msg{margin-bottom:12px}
 .msg.user{text-align:right}
-.msg-bubble{display:inline-block;max-width:85%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.6}
-.msg.user .msg-bubble{background:var(--accent);color:white;border-bottom-right-radius:4px}
-.msg.ai .msg-bubble{background:var(--card);border:1px solid var(--border);border-bottom-left-radius:4px}
-.msg-name{font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600}
-.chat-input-row{display:flex;gap:8px}
-.chat-input-row input{flex:1;padding:12px 14px;background:var(--bg);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:14px;outline:none;font-family:'Space Grotesk',sans-serif}
-.chat-input-row input:focus{border-color:var(--accent)}
-.send-btn{padding:12px 18px;background:var(--accent);border:none;border-radius:12px;color:white;font-size:18px;cursor:pointer}
-.invoice-preview{background:white;border-radius:14px;padding:20px;margin-top:12px;color:#111;display:none}
-.invoice-preview.show{display:block}
-.inv-header{display:flex;justify-content:space-between;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #6c63ff}
-.inv-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#6c63ff}
-.inv-details{font-size:12px;color:#666;line-height:1.8}
-.inv-table{width:100%;border-collapse:collapse;margin:15px 0;font-size:13px}
-.inv-table th{background:#6c63ff;color:white;padding:8px 12px;text-align:left}
-.inv-table td{padding:8px 12px;border-bottom:1px solid #eee}
-.inv-total{text-align:right;font-size:16px;font-weight:700;color:#6c63ff;margin-top:10px}
-.pricing-grid{display:grid;gap:12px}
-.price-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;position:relative}
-.price-card.popular{border-color:var(--accent);box-shadow:0 0 30px rgba(108,99,255,.15)}
-.popular-badge{position:absolute;top:12px;right:12px;background:var(--accent);color:white;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px}
-.plan-name{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
-.plan-price{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;margin-bottom:3px}
-.plan-price span{font-size:14px;color:var(--muted);font-family:'Space Grotesk',sans-serif}
-.plan-desc{font-size:12px;color:var(--muted);margin-bottom:15px}
-.plan-features{list-style:none;margin-bottom:18px}
-.plan-features li{font-size:13px;padding:5px 0;color:#c8c8e8;border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;gap:8px}
-.plan-features li::before{content:'✦';color:var(--accent);font-size:10px}
-.names-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-.name-chip{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;text-align:center}
-.name-chip:hover{border-color:var(--accent);color:var(--accent)}
-.kit-section{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px;margin-top:8px}
-.kit-label{font-size:11px;font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
-.kit-content{font-size:13px;line-height:1.7;color:#c8c8e8}
-.insight-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px;margin-top:8px}
-.insight-title{font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--accent3);color:var(--bg);padding:10px 22px;border-radius:25px;font-size:13px;font-weight:700;display:none;z-index:999;white-space:nowrap;font-family:'Space Grotesk',sans-serif}
-.toast.show{display:block;animation:toastAnim 2.5s ease forwards}
-@keyframes toastAnim{0%{opacity:0;transform:translateX(-50%) translateY(10px)}15%{opacity:1;transform:translateX(-50%) translateY(0)}75%{opacity:1}100%{opacity:0}}
+.bubble{display:inline-block;max-width:85%;padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.6}
+.msg.user .bubble{background:#6c63ff;color:#fff}
+.msg.ai .bubble{background:#111130;border:1px solid #222;color:#fff}
+.msg-name{font-size:10px;color:#888;margin-bottom:3px;font-weight:bold}
+.chat-row{display:flex;gap:8px}
+.chat-row input{flex:1;padding:11px;background:#0a0a1a;border:1px solid #333;border-radius:10px;color:#fff;font-size:14px;outline:none}
+.chat-row input:focus{border-color:#6c63ff}
+.send-btn{padding:11px 16px;background:#6c63ff;border:none;border-radius:10px;color:#fff;font-size:18px;cursor:pointer}
+
+/* INVOICE */
+.invoice{background:#fff;border-radius:12px;padding:18px;margin-top:12px;color:#111;display:none}
+.invoice.show{display:block}
+.inv-head{display:flex;justify-content:space-between;margin-bottom:15px;padding-bottom:12px;border-bottom:2px solid #6c63ff}
+.inv-title{font-size:22px;font-weight:900;color:#6c63ff}
+.inv-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+.inv-table th{background:#6c63ff;color:#fff;padding:7px 10px;text-align:left}
+.inv-table td{padding:7px 10px;border-bottom:1px solid #eee}
+.inv-total{text-align:right;font-size:15px;font-weight:bold;color:#6c63ff;margin-top:8px}
+
+/* PRICING */
+.price-card{background:#111130;border:1px solid #222;border-radius:14px;padding:18px;margin-bottom:12px}
+.price-card.popular{border-color:#6c63ff}
+.plan-name{font-size:11px;color:#888;font-weight:bold;text-transform:uppercase;margin-bottom:4px}
+.plan-price{font-size:30px;font-weight:900;margin-bottom:3px}
+.plan-price span{font-size:13px;color:#888}
+.plan-desc{font-size:12px;color:#666;margin-bottom:12px}
+.plan-feat{list-style:none;margin-bottom:15px}
+.plan-feat li{font-size:13px;padding:4px 0;border-bottom:1px solid #1a1a3a;color:#ccc}
+.plan-feat li::before{content:"✦ ";color:#6c63ff;font-size:10px}
+
+/* NAMES */
+.names-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.name-chip{background:#0a0a1a;border:1px solid #333;border-radius:8px;padding:10px;font-size:13px;font-weight:bold;cursor:pointer;text-align:center}
+.name-chip:hover{border-color:#6c63ff;color:#6c63ff}
+
+/* KIT */
+.kit-section{background:#0a0a1a;border:1px solid #333;border-radius:10px;padding:12px;margin-top:8px}
+.kit-label{font-size:11px;font-weight:bold;color:#ff6584;text-transform:uppercase;margin-bottom:5px}
+.kit-content{font-size:13px;line-height:1.7;color:#ccc}
+
+/* INSIGHT */
+.insight{background:#0a0a1a;border:1px solid #333;border-radius:10px;padding:12px;margin-top:8px}
+.insight-title{font-size:11px;font-weight:bold;color:#6c63ff;text-transform:uppercase;margin-bottom:6px}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#43e97b;color:#0a0a1a;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:bold;display:none;z-index:9999}
+.toast.show{display:block}
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <div class="header">
-  <div class="logo">BizAI Pro</div>
-  <div style="display:flex;align-items:center;gap:12px;">
-    <div class="lang-toggle">
-      <button class="lang-btn active" onclick="setLang('en',this)">EN</button>
-      <button class="lang-btn" onclick="setLang('hi',this)">हिं</button>
-    </div>
-    <div class="status-badge"><div class="pulse"></div><span>AI Ready</span></div>
-  </div>
+  <div class="logo">🤖 BizAI Pro</div>
+  <div class="status">● AI Ready</div>
 </div>
 
+<!-- HERO -->
 <div class="hero">
   <div class="hero-tag">🚀 India's #1 Business AI</div>
-  <h1 id="heroTitle">Ultimate<br>Business AI</h1>
-  <p id="heroSub">Complete AI-powered business automation. Work smarter, grow faster.</p>
-  <div class="stats-row">
-    <div class="stat"><div class="stat-num">10+</div><div class="stat-label">AI Tools</div></div>
-    <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Content</div></div>
-    <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Available</div></div>
+  <h1>Ultimate <span>Business AI</span></h1>
+  <p>Complete AI-powered business automation for India</p>
+  <div class="stats">
+    <div><div class="stat-num">10+</div><div class="stat-label">AI TOOLS</div></div>
+    <div><div class="stat-num">∞</div><div class="stat-label">CONTENT</div></div>
+    <div><div class="stat-num">24/7</div><div class="stat-label">AVAILABLE</div></div>
   </div>
 </div>
 
-<div class="api-setup show" id="apiSetup">
+<!-- API BOX -->
+<div class="api-box show" id="apiBox">
   <h3>🔑 Setup Your AI</h3>
-  <p id="apiDesc">Enter your Groq API Key to unlock all features (Free!)</p>
+  <p>Enter your Groq API Key (Free!) to unlock all features</p>
   <div class="api-row">
-    <input type="password" id="apiInput" placeholder="gsk_...your key">
-    <button onclick="saveKey()">Save</button>
+    <input type="text" id="apiInput" placeholder="gsk_...paste your key here">
+    <button class="save-btn" id="saveBtn">Save</button>
   </div>
 </div>
 
+<!-- SUCCESS MESSAGE -->
+<div class="success-msg" id="successMsg">✅ API Key Saved! All features unlocked!</div>
+
+<!-- NAV -->
 <div class="nav">
-  <button class="nav-btn active" onclick="showTab('home',this)">🏠 Home</button>
-  <button class="nav-btn" onclick="showTab('chat',this)">🤖 AI Chat</button>
-  <button class="nav-btn" onclick="showTab('kit',this)">🚀 Business Kit</button>
-  <button class="nav-btn" onclick="showTab('content',this)">✍️ Content</button>
-  <button class="nav-btn" onclick="showTab('email',this)">📧 Email</button>
-  <button class="nav-btn" onclick="showTab('social',this)">📱 Social</button>
-  <button class="nav-btn" onclick="showTab('sales',this)">💰 Sales</button>
-  <button class="nav-btn" onclick="showTab('names',this)">✨ Names</button>
-  <button class="nav-btn" onclick="showTab('invoice',this)">🧾 Invoice</button>
-  <button class="nav-btn" onclick="showTab('competitor',this)">🔍 Analyzer</button>
-  <button class="nav-btn" onclick="showTab('pricing',this)">💎 Pricing</button>
-  <button class="nav-btn" onclick="showTab('settings',this)">⚙️ Settings</button>
+  <button class="active" id="nav-home" onclick="showTab('home')">🏠 Home</button>
+  <button id="nav-chat" onclick="showTab('chat')">🤖 AI Chat</button>
+  <button id="nav-kit" onclick="showTab('kit')">🚀 Business Kit</button>
+  <button id="nav-content" onclick="showTab('content')">✍️ Content</button>
+  <button id="nav-email" onclick="showTab('email')">📧 Email</button>
+  <button id="nav-social" onclick="showTab('social')">📱 Social</button>
+  <button id="nav-sales" onclick="showTab('sales')">💰 Sales</button>
+  <button id="nav-names" onclick="showTab('names')">✨ Names</button>
+  <button id="nav-invoice" onclick="showTab('invoice')">🧾 Invoice</button>
+  <button id="nav-competitor" onclick="showTab('competitor')">🔍 Analyzer</button>
+  <button id="nav-pricing" onclick="showTab('pricing')">💎 Pricing</button>
+  <button id="nav-settings" onclick="showTab('settings')">⚙️ Settings</button>
 </div>
 
 <div class="content">
 
 <!-- HOME -->
-<div id="home" class="tab active">
+<div id="tab-home" class="tab active">
   <div class="tool-grid">
-    <div class="tool-card" onclick="showTab('chat',null)"><div class="t-icon">🤖</div><div class="t-name">AI Chat</div><div class="t-desc">Ask anything</div></div>
-    <div class="tool-card" onclick="showTab('kit',null)"><div class="t-icon">🚀</div><div class="t-name">Business Kit</div><div class="t-desc">1-click setup</div></div>
-    <div class="tool-card" onclick="showTab('content',null)"><div class="t-icon">✍️</div><div class="t-name">Content</div><div class="t-desc">AI writing</div></div>
-    <div class="tool-card" onclick="showTab('email',null)"><div class="t-icon">📧</div><div class="t-name">Email</div><div class="t-desc">Pro emails</div></div>
-    <div class="tool-card" onclick="showTab('names',null)"><div class="t-icon">✨</div><div class="t-name">Name Gen</div><div class="t-desc">Business names</div></div>
-    <div class="tool-card" onclick="showTab('invoice',null)"><div class="t-icon">🧾</div><div class="t-name">Invoice</div><div class="t-desc">Auto billing</div></div>
-    <div class="tool-card" onclick="showTab('social',null)"><div class="t-icon">📱</div><div class="t-name">Social Media</div><div class="t-desc">Viral posts</div></div>
-    <div class="tool-card" onclick="showTab('competitor',null)"><div class="t-icon">🔍</div><div class="t-name">Analyzer</div><div class="t-desc">Beat rivals</div></div>
+    <div class="tool-btn" onclick="showTab('chat')"><div class="icon">🤖</div><div class="name">AI Chat</div><div class="desc">Ask anything</div></div>
+    <div class="tool-btn" onclick="showTab('kit')"><div class="icon">🚀</div><div class="name">Business Kit</div><div class="desc">1-click setup</div></div>
+    <div class="tool-btn" onclick="showTab('content')"><div class="icon">✍️</div><div class="name">Content</div><div class="desc">AI writing</div></div>
+    <div class="tool-btn" onclick="showTab('email')"><div class="icon">📧</div><div class="name">Email</div><div class="desc">Pro emails</div></div>
+    <div class="tool-btn" onclick="showTab('names')"><div class="icon">✨</div><div class="name">Name Gen</div><div class="desc">Business names</div></div>
+    <div class="tool-btn" onclick="showTab('invoice')"><div class="icon">🧾</div><div class="name">GST Invoice</div><div class="desc">Auto billing</div></div>
+    <div class="tool-btn" onclick="showTab('social')"><div class="icon">📱</div><div class="name">Social Media</div><div class="desc">Viral posts</div></div>
+    <div class="tool-btn" onclick="showTab('competitor')"><div class="icon">🔍</div><div class="name">Analyzer</div><div class="desc">Beat rivals</div></div>
   </div>
   <div class="card">
-    <div class="card-head"><div class="card-icon">⚡</div><div><div class="card-title">Why BizAI Pro?</div><div class="card-sub">India's most powerful business AI</div></div></div>
-    <div style="font-size:13px;color:var(--muted);line-height:2;">✦ Save 10+ hours every week<br>✦ Generate professional content instantly<br>✦ Write emails that actually convert<br>✦ Dominate social media effortlessly<br>✦ Create GST invoices in seconds<br>✦ Analyze competitors & win in Indian market</div>
+    <div class="card-title">⚡ Why BizAI Pro?</div>
+    <div style="font-size:13px;color:#888;line-height:2">
+      ✦ Save 10+ hours every week<br>
+      ✦ Generate professional content instantly<br>
+      ✦ Write emails that convert<br>
+      ✦ Create GST invoices in seconds<br>
+      ✦ Analyze competitors & win<br>
+      ✦ Made for Indian businesses 🇮🇳
+    </div>
   </div>
 </div>
 
 <!-- CHAT -->
-<div id="chat" class="tab">
+<div id="tab-chat" class="tab">
   <div class="card">
-    <div class="card-head"><div class="card-icon">🤖</div><div><div class="card-title">Live AI Assistant</div><div class="card-sub">Ask anything about your business</div></div></div>
+    <div class="card-title">🤖 Live AI Assistant</div>
     <div class="chat-box" id="chatBox">
-      <div class="msg ai"><div class="msg-name">BizAI Pro</div><div class="msg-bubble">👋 Namaste! I'm your AI business assistant. Ask me anything about your business! आप हिंदी में भी पूछ सकते हैं!</div></div>
+      <div class="msg ai"><div class="msg-name">BizAI Pro</div><div class="bubble">👋 Namaste! I'm your AI business assistant. Ask me anything! आप हिंदी में भी पूछ सकते हैं!</div></div>
     </div>
-    <div class="chat-input-row">
-      <input type="text" id="chatInput" placeholder="Ask your business question..." onkeypress="if(event.key==='Enter')sendChat()">
-      <button class="send-btn" onclick="sendChat()">➤</button>
+    <div class="chat-row">
+      <input type="text" id="chatInput" placeholder="Ask your business question...">
+      <button class="send-btn" id="sendBtn">➤</button>
     </div>
   </div>
 </div>
 
 <!-- BUSINESS KIT -->
-<div id="kit" class="tab">
+<div id="tab-kit" class="tab">
   <div class="card">
-    <div class="card-head"><div class="card-icon">🚀</div><div><div class="card-title">One Click Business Kit</div><div class="card-sub">Get everything for your business instantly</div></div></div>
+    <div class="card-title">🚀 One Click Business Kit</div>
     <div class="field"><label>Business Name</label><input type="text" id="kitName" placeholder="e.g. Mumbai Digital Agency"></div>
-    <div class="field"><label>Business Type</label><input type="text" id="kitType" placeholder="e.g. Digital Marketing, Restaurant, Clothing"></div>
+    <div class="field"><label>Business Type</label><input type="text" id="kitType" placeholder="e.g. Digital Marketing, Restaurant"></div>
     <div class="field"><label>Target Customers</label><input type="text" id="kitTarget" placeholder="e.g. Small businesses in Mumbai"></div>
-    <button class="btn btn-primary" onclick="generateKit()">🚀 Generate Complete Business Kit</button>
-    <div class="loader" id="kitLoader"><div class="loader-ring"></div><p>Creating your complete business kit...</p></div>
-    <div id="kitResult" style="display:none;">
+    <button class="btn btn-purple" id="kitBtn">🚀 Generate Complete Business Kit</button>
+    <div class="loader" id="kitLoader"><div class="spin"></div><p>Creating your business kit...</p></div>
+    <div id="kitResult" style="display:none">
       <div class="kit-section"><div class="kit-label">🎯 Slogan</div><div class="kit-content" id="kitSlogan"></div></div>
       <div class="kit-section"><div class="kit-label">📋 Business Plan</div><div class="kit-content" id="kitPlan"></div></div>
       <div class="kit-section"><div class="kit-label">📱 Social Strategy</div><div class="kit-content" id="kitSocial"></div></div>
@@ -221,414 +247,535 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:
 </div>
 
 <!-- CONTENT -->
-<div id="content" class="tab">
+<div id="tab-content" class="tab">
   <div class="card">
-    <div class="card-head"><div class="card-icon">✍️</div><div><div class="card-title">AI Content Writer</div><div class="card-sub">Professional content in seconds</div></div></div>
-    <div class="field"><label>Content Type</label><select id="contentType"><option value="blog post">📝 Blog Post</option><option value="product description">🛍️ Product Description</option><option value="about us page">🏢 About Us</option><option value="press release">📰 Press Release</option><option value="newsletter">📬 Newsletter</option><option value="website homepage content">🌐 Website Homepage</option></select></div>
+    <div class="card-title">✍️ AI Content Writer</div>
+    <div class="field"><label>Content Type</label>
+      <select id="contentType">
+        <option value="blog post">📝 Blog Post</option>
+        <option value="product description">🛍️ Product Description</option>
+        <option value="about us page">🏢 About Us</option>
+        <option value="press release">📰 Press Release</option>
+        <option value="newsletter">📬 Newsletter</option>
+        <option value="website homepage">🌐 Website Homepage</option>
+      </select>
+    </div>
     <div class="field"><label>Topic / Business</label><input type="text" id="contentTopic" placeholder="What's it about?"></div>
     <div class="field"><label>Target Audience</label><input type="text" id="contentAudience" placeholder="Who will read this?"></div>
-    <div class="field"><label>Tone</label><select id="contentTone"><option value="professional">Professional</option><option value="friendly and casual">Friendly & Casual</option><option value="persuasive">Persuasive</option><option value="informative">Informative</option><option value="exciting and energetic">Exciting</option></select></div>
-    <button class="btn btn-primary" onclick="genContent()">✍️ Generate Content</button>
-    <div class="loader" id="contentLoader"><div class="loader-ring"></div><p>Writing your content...</p></div>
-    <div class="result" id="contentResult"><button class="copy-btn" onclick="copyText('contentText')">📋 Copy</button><div id="contentText"></div></div>
+    <div class="field"><label>Tone</label>
+      <select id="contentTone">
+        <option value="professional">Professional</option>
+        <option value="friendly">Friendly</option>
+        <option value="persuasive">Persuasive</option>
+        <option value="informative">Informative</option>
+      </select>
+    </div>
+    <button class="btn btn-purple" id="contentBtn">✍️ Generate Content</button>
+    <div class="loader" id="contentLoader"><div class="spin"></div><p>Writing content...</p></div>
+    <div class="result" id="contentResult"><button class="copy-btn" onclick="copyEl('contentText')">📋 Copy</button><div id="contentText"></div></div>
   </div>
 </div>
 
 <!-- EMAIL -->
-<div id="email" class="tab">
+<div id="tab-email" class="tab">
   <div class="card">
-    <div class="card-head"><div class="card-icon">📧</div><div><div class="card-title">AI Email Writer</div><div class="card-sub">Emails that get responses</div></div></div>
-    <div class="field"><label>Email Type</label><select id="emailType"><option value="cold outreach">Cold Outreach</option><option value="follow up">Follow Up</option><option value="sales pitch">Sales Pitch</option><option value="thank you">Thank You</option><option value="business proposal">Business Proposal</option><option value="complaint response">Complaint Response</option></select></div>
+    <div class="card-title">📧 AI Email Writer</div>
+    <div class="field"><label>Email Type</label>
+      <select id="emailType">
+        <option value="cold outreach">Cold Outreach</option>
+        <option value="follow up">Follow Up</option>
+        <option value="sales pitch">Sales Pitch</option>
+        <option value="thank you">Thank You</option>
+        <option value="business proposal">Business Proposal</option>
+      </select>
+    </div>
     <div class="field"><label>Your Business</label><input type="text" id="emailBiz" placeholder="Your business name"></div>
     <div class="field"><label>Recipient</label><input type="text" id="emailTo" placeholder="Who are you emailing?"></div>
     <div class="field"><label>Key Message</label><textarea id="emailMsg" placeholder="What do you want to say?"></textarea></div>
-    <button class="btn btn-primary" onclick="genEmail()">📧 Write Email</button>
-    <div class="loader" id="emailLoader"><div class="loader-ring"></div><p>Writing your email...</p></div>
-    <div class="result" id="emailResult"><button class="copy-btn" onclick="copyText('emailText')">📋 Copy</button><div id="emailText"></div></div>
+    <button class="btn btn-purple" id="emailBtn">📧 Write Email</button>
+    <div class="loader" id="emailLoader"><div class="spin"></div><p>Writing email...</p></div>
+    <div class="result" id="emailResult"><button class="copy-btn" onclick="copyEl('emailText')">📋 Copy</button><div id="emailText"></div></div>
   </div>
 </div>
 
 <!-- SOCIAL -->
-<div id="social" class="tab">
+<div id="tab-social" class="tab">
   <div class="card">
-    <div class="card-head"><div class="card-icon">📱</div><div><div class="card-title">Social Media AI</div><div class="card-sub">Posts that go viral</div></div></div>
-    <div class="field"><label>Platform</label><select id="socialPlatform"><option value="Facebook">Facebook</option><option value="Instagram">Instagram</option><option value="LinkedIn">LinkedIn</option><option value="Twitter/X">Twitter/X</option><option value="WhatsApp Business">WhatsApp Business</option></select></div>
-    <div class="field"><label>Post Type</label><select id="socialType"><option value="promotional post with strong CTA">Promotional</option><option value="educational and informative post">Educational</option><option value="engagement and question post">Engagement</option><option value="behind the scenes authentic post">Behind The Scenes</option><option value="motivational and inspiring post">Motivational</option></select></div>
-    <div class="field"><label>Business / Product</label><input type="text" id="socialBiz" placeholder="What's your business?"></div>
-    <button class="btn btn-pink" onclick="genSocial()">📱 Create Viral Post</button>
-    <div class="loader" id="socialLoader"><div class="loader-ring"></div><p>Creating viral post...</p></div>
-    <div class="result" id="socialResult"><button class="copy-btn" onclick="copyText('socialText')">📋 Copy</button><div id="socialText"></div></div>
+    <div class="card-title">📱 Social Media AI</div>
+    <div class="field"><label>Platform</label>
+      <select id="socialPlatform">
+        <option value="Facebook">Facebook</option>
+        <option value="Instagram">Instagram</option>
+        <option value="LinkedIn">LinkedIn</option>
+        <option value="Twitter/X">Twitter/X</option>
+        <option value="WhatsApp Business">WhatsApp Business</option>
+      </select>
+    </div>
+    <div class="field"><label>Post Type</label>
+      <select id="socialType">
+        <option value="promotional">Promotional</option>
+        <option value="educational">Educational</option>
+        <option value="engagement">Engagement</option>
+        <option value="motivational">Motivational</option>
+      </select>
+    </div>
+    <div class="field"><label>Business</label><input type="text" id="socialBiz" placeholder="What's your business?"></div>
+    <button class="btn btn-pink" id="socialBtn">📱 Create Viral Post</button>
+    <div class="loader" id="socialLoader"><div class="spin"></div><p>Creating post...</p></div>
+    <div class="result" id="socialResult"><button class="copy-btn" onclick="copyEl('socialText')">📋 Copy</button><div id="socialText"></div></div>
   </div>
 </div>
 
 <!-- SALES -->
-<div id="sales" class="tab">
+<div id="tab-sales" class="tab">
   <div class="card">
-    <div class="card-head"><div class="card-icon">💰</div><div><div class="card-title">AI Sales Copy</div><div class="card-sub">Copy that converts</div></div></div>
-    <div class="field"><label>Copy Type</label><select id="salesType"><option value="sales page">Sales Page</option><option value="Facebook ad copy">Facebook Ad</option><option value="landing page headline">Landing Page</option><option value="sales pitch script">Sales Script</option><option value="special offer announcement">Special Offer</option></select></div>
+    <div class="card-title">💰 AI Sales Copy</div>
+    <div class="field"><label>Copy Type</label>
+      <select id="salesType">
+        <option value="sales page">Sales Page</option>
+        <option value="Facebook ad">Facebook Ad</option>
+        <option value="landing page headline">Landing Page</option>
+        <option value="sales pitch script">Sales Script</option>
+      </select>
+    </div>
     <div class="field"><label>Product / Service</label><input type="text" id="salesProduct" placeholder="What are you selling?"></div>
     <div class="field"><label>Price</label><input type="text" id="salesPrice" placeholder="e.g. ₹999, ₹2999/month"></div>
     <div class="field"><label>Main Benefit</label><textarea id="salesBenefit" placeholder="What problem does it solve?"></textarea></div>
-    <button class="btn btn-green" onclick="genSales()">💰 Generate Sales Copy</button>
-    <div class="loader" id="salesLoader"><div class="loader-ring"></div><p>Writing sales copy...</p></div>
-    <div class="result" id="salesResult"><button class="copy-btn" onclick="copyText('salesText')">📋 Copy</button><div id="salesText"></div></div>
+    <button class="btn btn-green" id="salesBtn">💰 Generate Sales Copy</button>
+    <div class="loader" id="salesLoader"><div class="spin"></div><p>Writing sales copy...</p></div>
+    <div class="result" id="salesResult"><button class="copy-btn" onclick="copyEl('salesText')">📋 Copy</button><div id="salesText"></div></div>
   </div>
 </div>
 
 <!-- NAMES -->
-<div id="names" class="tab">
+<div id="tab-names" class="tab">
   <div class="card">
-    <div class="card-head"><div class="card-icon">✨</div><div><div class="card-title">Business Name Generator</div><div class="card-sub">Find the perfect name</div></div></div>
+    <div class="card-title">✨ Business Name Generator</div>
     <div class="field"><label>Business Type</label><input type="text" id="nameType" placeholder="e.g. Digital Marketing Agency"></div>
-    <div class="field"><label>Your City</label><input type="text" id="nameLocation" placeholder="e.g. Mumbai, Delhi, Bangalore"></div>
-    <div class="field"><label>Style</label><select id="nameStyle"><option value="modern and professional">Modern & Professional</option><option value="creative and unique">Creative & Unique</option><option value="Indian/local feel">Indian / Local Feel</option><option value="international and global">International</option><option value="short and catchy">Short & Catchy</option></select></div>
-    <button class="btn btn-gold" onclick="genNames()">✨ Generate Names</button>
-    <div class="loader" id="namesLoader"><div class="loader-ring"></div><p>Finding perfect names...</p></div>
-    <div id="namesResult" style="display:none;">
+    <div class="field"><label>Your City</label><input type="text" id="nameCity" placeholder="e.g. Mumbai, Delhi, Bangalore"></div>
+    <div class="field"><label>Style</label>
+      <select id="nameStyle">
+        <option value="modern and professional">Modern & Professional</option>
+        <option value="creative and unique">Creative & Unique</option>
+        <option value="Indian local feel">Indian / Local Feel</option>
+        <option value="international">International</option>
+        <option value="short and catchy">Short & Catchy</option>
+      </select>
+    </div>
+    <button class="btn btn-gold" id="namesBtn">✨ Generate Names</button>
+    <div class="loader" id="namesLoader"><div class="spin"></div><p>Finding perfect names...</p></div>
+    <div id="namesResult" style="display:none">
       <div class="names-grid" id="namesGrid"></div>
-      <div class="result show" style="margin-top:12px;"><div id="namesExtra"></div></div>
+      <div class="result show" style="margin-top:10px"><div id="namesExtra"></div></div>
     </div>
   </div>
 </div>
 
 <!-- INVOICE -->
-<div id="invoice" class="tab">
+<div id="tab-invoice" class="tab">
   <div class="card">
-    <div class="card-head"><div class="card-icon">🧾</div><div><div class="card-title">GST Invoice Builder</div><div class="card-sub">Professional invoices instantly</div></div></div>
+    <div class="card-title">🧾 GST Invoice Builder</div>
     <div class="field"><label>Your Business</label><input type="text" id="invBiz" placeholder="Your Business Name"></div>
-    <div class="field"><label>GST Number (Optional)</label><input type="text" id="invGST" placeholder="e.g. 27XXXXX1234X1ZX"></div>
+    <div class="field"><label>GST Number (Optional)</label><input type="text" id="invGST" placeholder="27XXXXX1234X1ZX"></div>
     <div class="field"><label>Client Name</label><input type="text" id="invClient" placeholder="Client Name"></div>
-    <div class="field"><label>Service / Product</label><input type="text" id="invService" placeholder="e.g. Website Design, Social Media"></div>
+    <div class="field"><label>Service / Product</label><input type="text" id="invService" placeholder="e.g. Website Design"></div>
     <div class="field"><label>Amount (₹)</label><input type="number" id="invAmount" placeholder="e.g. 15000"></div>
-    <div class="field"><label>GST %</label><select id="invGSTRate"><option value="0">0% (No GST)</option><option value="5">5% GST</option><option value="12">12% GST</option><option value="18" selected>18% GST</option><option value="28">28% GST</option></select></div>
-    <button class="btn btn-primary" onclick="genInvoice()">🧾 Create GST Invoice</button>
-    <div id="invoicePreview" class="invoice-preview">
-      <div class="inv-header">
-        <div><div class="inv-title">TAX INVOICE</div><div style="font-size:11px;color:#6c63ff;font-weight:600;" id="invBizName"></div><div style="font-size:10px;color:#888;" id="invGSTNum"></div></div>
-        <div class="inv-details"><div id="invDate"></div><div id="invNum"></div></div>
+    <div class="field"><label>GST %</label>
+      <select id="invGSTRate">
+        <option value="0">0% (No GST)</option>
+        <option value="5">5% GST</option>
+        <option value="12">12% GST</option>
+        <option value="18" selected>18% GST</option>
+        <option value="28">28% GST</option>
+      </select>
+    </div>
+    <button class="btn btn-purple" id="invoiceBtn">🧾 Create GST Invoice</button>
+    <div class="invoice" id="invoicePreview">
+      <div class="inv-head">
+        <div><div class="inv-title">TAX INVOICE</div><div style="font-size:11px;color:#6c63ff;font-weight:bold" id="invBizName"></div><div style="font-size:10px;color:#888" id="invGSTNum"></div></div>
+        <div style="font-size:12px;color:#666;line-height:1.8"><div id="invDate"></div><div id="invNum"></div></div>
       </div>
-      <div style="display:flex;justify-content:space-between;margin-bottom:15px;font-size:13px;">
-        <div><strong>Bill To:</strong><br><span id="invClientName" style="color:#6c63ff;font-weight:600;"></span></div>
-        <div style="text-align:right;"><strong>Status:</strong><br><span style="color:#43e97b;font-weight:600;">Pending</span></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:12px;font-size:13px">
+        <div><strong>Bill To:</strong><br><span id="invClientName" style="color:#6c63ff;font-weight:bold"></span></div>
+        <div style="text-align:right"><strong>Status:</strong><br><span style="color:#43e97b;font-weight:bold">Pending</span></div>
       </div>
       <table class="inv-table">
         <tr><th>Description</th><th>Amount</th></tr>
         <tr><td id="invServiceName"></td><td id="invAmountCell"></td></tr>
-        <tr><td id="invGSTLabel" style="color:#666;"></td><td id="invGSTAmount" style="color:#666;"></td></tr>
+        <tr><td id="invGSTLabel" style="color:#666"></td><td id="invGSTAmount" style="color:#666"></td></tr>
       </table>
       <div class="inv-total">Total: <span id="invTotal"></span></div>
-      <div style="margin-top:15px;font-size:11px;color:#888;border-top:1px solid #eee;padding-top:12px;">Thank you for your business! • Payment due within 30 days</div>
+      <div style="margin-top:12px;font-size:11px;color:#888;border-top:1px solid #eee;padding-top:10px">Thank you for your business! • Payment due within 30 days</div>
     </div>
-    <button class="btn btn-green" style="margin-top:10px;display:none;" id="printBtn" onclick="window.print()">🖨️ Print / Save Invoice</button>
+    <button class="btn btn-green" id="printBtn" style="display:none;margin-top:10px" onclick="window.print()">🖨️ Print / Save Invoice</button>
   </div>
 </div>
 
 <!-- COMPETITOR -->
-<div id="competitor" class="tab">
+<div id="tab-competitor" class="tab">
   <div class="card">
-    <div class="card-head"><div class="card-icon">🔍</div><div><div class="card-title">Competitor Analyzer</div><div class="card-sub">Find weaknesses & beat rivals</div></div></div>
+    <div class="card-title">🔍 Competitor Analyzer</div>
     <div class="field"><label>Your Business</label><input type="text" id="compYours" placeholder="e.g. Digital Marketing Agency in Mumbai"></div>
     <div class="field"><label>Competitor</label><input type="text" id="compRival" placeholder="e.g. XYZ Agency"></div>
     <div class="field"><label>Your Strengths</label><textarea id="compStrengths" placeholder="What makes you different?"></textarea></div>
-    <button class="btn btn-pink" onclick="genCompetitor()">🔍 Analyze & Beat Them</button>
-    <div class="loader" id="compLoader"><div class="loader-ring"></div><p>Analyzing competitors...</p></div>
-    <div id="compResult" style="display:none;">
-      <div class="insight-card"><div class="insight-title">⚠️ Their Weaknesses</div><div id="compWeak" style="font-size:13px;color:#c8c8e8;line-height:1.7;"></div></div>
-      <div class="insight-card"><div class="insight-title">🏆 Your Winning Strategy</div><div id="compStrategy" style="font-size:13px;color:#c8c8e8;line-height:1.7;"></div></div>
-      <div class="insight-card"><div class="insight-title">📣 Marketing Tactics</div><div id="compTactics" style="font-size:13px;color:#c8c8e8;line-height:1.7;"></div></div>
+    <button class="btn btn-pink" id="compBtn">🔍 Analyze & Beat Them</button>
+    <div class="loader" id="compLoader"><div class="spin"></div><p>Analyzing competitors...</p></div>
+    <div id="compResult" style="display:none">
+      <div class="insight"><div class="insight-title">⚠️ Their Weaknesses</div><div id="compWeak" style="font-size:13px;color:#ccc;line-height:1.7"></div></div>
+      <div class="insight"><div class="insight-title">🏆 Your Winning Strategy</div><div id="compStrategy" style="font-size:13px;color:#ccc;line-height:1.7"></div></div>
+      <div class="insight"><div class="insight-title">📣 Marketing Tactics</div><div id="compTactics" style="font-size:13px;color:#ccc;line-height:1.7"></div></div>
     </div>
   </div>
 </div>
 
 <!-- PRICING -->
-<div id="pricing" class="tab">
+<div id="tab-pricing" class="tab">
   <div class="card">
-    <div class="card-head"><div class="card-icon">💎</div><div><div class="card-title">Choose Your Plan</div><div class="card-sub">Start free, upgrade when ready</div></div></div>
-    <div class="pricing-grid">
-      <div class="price-card"><div class="plan-name">Free</div><div class="plan-price">₹0<span>/month</span></div><div class="plan-desc">Perfect for getting started</div><ul class="plan-features"><li>5 AI Generations/day</li><li>All 10 Tools Access</li><li>AI Chat (10 msg/day)</li><li>Basic Invoice Builder</li><li>Community Support</li></ul><button class="btn btn-primary" onclick="toast('✅ You are on Free Plan!')">Current Plan</button></div>
-      <div class="price-card popular"><div class="popular-badge">⭐ POPULAR</div><div class="plan-name">Pro</div><div class="plan-price">₹999<span>/month</span></div><div class="plan-desc">For serious business owners</div><ul class="plan-features"><li>Unlimited AI Generations</li><li>All Tools Unlimited</li><li>Unlimited AI Chat</li><li>Full Business Kit</li><li>Competitor Analyzer</li><li>Priority Support</li></ul><button class="btn btn-primary" onclick="toast('📞 Contact us to upgrade!')">Get Pro</button></div>
-      <div class="price-card"><div class="plan-name">Business</div><div class="plan-price">₹19,999<span> once</span></div><div class="plan-desc">Own this entire app!</div><ul class="plan-features"><li>Full App Ownership</li><li>Your Own Branding</li><li>Sell to your clients</li><li>Source Code Included</li><li>Lifetime Updates</li><li>1-on-1 Setup Support</li></ul><button class="btn btn-gold" onclick="toast('📞 Contact us to buy!')">Buy App</button></div>
+    <div class="card-title">💎 Choose Your Plan</div>
+    <div class="price-card">
+      <div class="plan-name">Free</div>
+      <div class="plan-price">₹0<span>/month</span></div>
+      <div class="plan-desc">Perfect for getting started</div>
+      <ul class="plan-feat"><li>5 AI Generations/day</li><li>All 10 Tools</li><li>AI Chat (10 msg/day)</li><li>GST Invoice Builder</li></ul>
+      <button class="btn btn-purple" onclick="showToast('✅ You are on Free Plan!')">Current Plan</button>
+    </div>
+    <div class="price-card popular">
+      <div class="plan-name">⭐ Pro - Most Popular</div>
+      <div class="plan-price">₹999<span>/month</span></div>
+      <div class="plan-desc">For serious business owners</div>
+      <ul class="plan-feat"><li>Unlimited AI Generations</li><li>All Tools Unlimited</li><li>Unlimited AI Chat</li><li>Full Business Kit</li><li>Priority Support</li></ul>
+      <button class="btn btn-purple" onclick="showToast('📞 WhatsApp: 9XXXXXXXXX')">Get Pro - ₹999/month</button>
+    </div>
+    <div class="price-card">
+      <div class="plan-name">Business</div>
+      <div class="plan-price">₹19,999<span> once</span></div>
+      <div class="plan-desc">Own this entire app!</div>
+      <ul class="plan-feat"><li>Full App Ownership</li><li>Your Own Branding</li><li>Source Code</li><li>Lifetime Updates</li><li>1-on-1 Support</li></ul>
+      <button class="btn btn-gold" onclick="showToast('📞 WhatsApp: 9XXXXXXXXX')">Buy Full App</button>
     </div>
   </div>
 </div>
 
 <!-- SETTINGS -->
-<div id="settings" class="tab">
+<div id="tab-settings" class="tab">
   <div class="card">
-    <div class="card-head"><div class="card-icon">⚙️</div><div><div class="card-title">Settings</div><div class="card-sub">Configure your AI</div></div></div>
-    <div class="field"><label>Groq API Key</label><input type="password" id="settingsKey" placeholder="gsk_...your key"></div>
-    <button class="btn btn-primary" onclick="saveKeySettings()">💾 Save API Key</button>
+    <div class="card-title">⚙️ Settings</div>
+    <div class="field"><label>Groq API Key</label><input type="text" id="settingsKey" placeholder="gsk_...your key"></div>
+    <button class="btn btn-purple" id="settingsSaveBtn">💾 Save API Key</button>
+    <div id="settingsMsg" style="display:none;color:#43e97b;text-align:center;padding:10px;font-weight:bold">✅ Saved!</div>
   </div>
   <div class="card">
-    <div class="card-head"><div class="card-icon">ℹ️</div><div><div class="card-title">About BizAI Pro</div><div class="card-sub">India's #1 Business AI</div></div></div>
-    <div style="font-size:13px;color:var(--muted);line-height:2;"><span style="color:var(--text);font-weight:600;">Version:</span> 3.0.0<br><span style="color:var(--text);font-weight:600;">Powered by:</span> Groq AI (Free & Fast!)<br><span style="color:var(--text);font-weight:600;">Tools:</span> 10+ AI Tools<br><span style="color:var(--text);font-weight:600;">Languages:</span> English & हिंदी<br><span style="color:var(--text);font-weight:600;">Made for:</span> 🇮🇳 Indian Businesses</div>
+    <div class="card-title">ℹ️ About BizAI Pro</div>
+    <div style="font-size:13px;color:#888;line-height:2">
+      <strong style="color:#fff">Version:</strong> 4.0.0<br>
+      <strong style="color:#fff">AI:</strong> Groq (Free & Fast!)<br>
+      <strong style="color:#fff">Tools:</strong> 10+ AI Tools<br>
+      <strong style="color:#fff">Made for:</strong> 🇮🇳 Indian Businesses
+    </div>
   </div>
 </div>
 
 </div>
 
-<div class="toast" id="toastEl"></div>
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
 <script>
-let APIKEY = localStorage.getItem('bizai_groq_key') || '';
+// ========== KEY MANAGEMENT ==========
+var APIKEY = '';
 
-const hiTexts = {
-  heroTitle: 'अल्टीमेट<br>बिज़नेस AI',
-  heroSub: 'पूर्ण AI-संचालित व्यापार स्वचालन प्रणाली।',
-  apiDesc: 'सभी फीचर्स अनलॉक करने के लिए Groq API Key डालें'
-};
-
-window.onload = () => {
-  if (APIKEY) {
-    document.getElementById('apiSetup').classList.remove('show');
-    document.getElementById('settingsKey').value = APIKEY;
-  }
-};
-
-function setLang(l, btn) {
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  if (l === 'hi') {
-    document.getElementById('heroTitle').innerHTML = hiTexts.heroTitle;
-    document.getElementById('heroSub').textContent = hiTexts.heroSub;
-    document.getElementById('apiDesc').textContent = hiTexts.apiDesc;
-  } else {
-    document.getElementById('heroTitle').innerHTML = 'Ultimate<br>Business AI';
-    document.getElementById('heroSub').textContent = 'Complete AI-powered business automation. Work smarter, grow faster.';
-    document.getElementById('apiDesc').textContent = 'Enter your Groq API Key to unlock all features (Free!)';
-  }
-}
-
-function saveKey() {
-  const k = document.getElementById('apiInput').value.trim();
-  if (!k) { toast('❌ Please enter API key!'); return; }
-  APIKEY = k; localStorage.setItem('bizai_groq_key', k);
-  document.getElementById('apiSetup').classList.remove('show');
-  document.getElementById('settingsKey').value = k;
-  toast('✅ API Key saved! All features unlocked!');
-}
-
-function saveKeySettings() {
-  const k = document.getElementById('settingsKey').value.trim();
-  if (!k) { toast('❌ Please enter API key!'); return; }
-  APIKEY = k; localStorage.setItem('bizai_groq_key', k);
-  document.getElementById('apiSetup').classList.remove('show');
-  toast('✅ API Key updated!');
-}
-
-function showTab(name, btn) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(name).classList.add('active');
-  if (btn) btn.classList.add('active');
-}
-
-async function groq(prompt) {
-  if (!APIKEY) { toast('❌ Please set your API key first!'); return null; }
+function loadKey() {
   try {
-    const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + APIKEY
-      },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile'
-        messages: [{ role: 'user', content: prompt }],
-        max_tokens: 1024
-      })
-    });
-    const d = await r.json();
-    if (d.choices?.[0]) return d.choices[0].message.content;
-    return 'Error: ' + (d.error?.message || 'Check your API key');
-  } catch(e) { return 'Connection error. Please try again.'; }
+    var k = localStorage.getItem('bizai_key');
+    if (k && k.length > 10) {
+      APIKEY = k;
+      document.getElementById('apiBox').classList.remove('show');
+      document.getElementById('settingsKey').value = k;
+      return true;
+    }
+  } catch(e) {}
+  return false;
 }
 
+function saveApiKey(key) {
+  if (!key || key.trim().length < 10) {
+    showToast('❌ Please enter a valid API key!');
+    return false;
+  }
+  APIKEY = key.trim();
+  try { localStorage.setItem('bizai_key', APIKEY); } catch(e) {}
+  document.getElementById('apiBox').classList.remove('show');
+  document.getElementById('successMsg').classList.add('show');
+  document.getElementById('settingsKey').value = APIKEY;
+  showToast('✅ API Key Saved! All features unlocked!');
+  setTimeout(function() {
+    document.getElementById('successMsg').classList.remove('show');
+  }, 3000);
+  return true;
+}
+
+// ========== INIT ==========
+window.onload = function() {
+  loadKey();
+  
+  // Save button
+  document.getElementById('saveBtn').onclick = function() {
+    var key = document.getElementById('apiInput').value;
+    saveApiKey(key);
+  };
+  
+  // Settings save button
+  document.getElementById('settingsSaveBtn').onclick = function() {
+    var key = document.getElementById('settingsKey').value;
+    if (saveApiKey(key)) {
+      document.getElementById('settingsMsg').style.display = 'block';
+      setTimeout(function() {
+        document.getElementById('settingsMsg').style.display = 'none';
+      }, 2000);
+    }
+  };
+  
+  // Send chat button
+  document.getElementById('sendBtn').onclick = sendChat;
+  document.getElementById('chatInput').onkeypress = function(e) {
+    if (e.key === 'Enter') sendChat();
+  };
+  
+  // Kit button
+  document.getElementById('kitBtn').onclick = generateKit;
+  document.getElementById('contentBtn').onclick = genContent;
+  document.getElementById('emailBtn').onclick = genEmail;
+  document.getElementById('socialBtn').onclick = genSocial;
+  document.getElementById('salesBtn').onclick = genSales;
+  document.getElementById('namesBtn').onclick = genNames;
+  document.getElementById('invoiceBtn').onclick = genInvoice;
+  document.getElementById('compBtn').onclick = genCompetitor;
+};
+
+// ========== TAB ==========
+function showTab(name) {
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.nav button').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  var nb = document.getElementById('nav-' + name);
+  if (nb) nb.classList.add('active');
+}
+
+// ========== API CALL ==========
+function callAI(prompt, callback) {
+  if (!APIKEY) {
+    showToast('❌ Please set your API key first!');
+    return;
+  }
+  fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + APIKEY
+    },
+    body: JSON.stringify({
+      model: 'llama-3.3-70b-versatile',
+      messages: [{ role: 'user', content: prompt }],
+      max_tokens: 1024
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    if (d.choices && d.choices[0]) {
+      callback(d.choices[0].message.content);
+    } else {
+      callback('Error: ' + (d.error ? d.error.message : 'Check your API key'));
+    }
+  })
+  .catch(function(e) {
+    callback('Connection error. Please try again.');
+  });
+}
+
+// ========== LOADER ==========
 function showLoader(id) { document.getElementById(id).classList.add('show'); }
 function hideLoader(id) { document.getElementById(id).classList.remove('show'); }
-
 function showResult(resultId, textId, text) {
   document.getElementById(textId).textContent = text;
   document.getElementById(resultId).classList.add('show');
 }
 
-async function sendChat() {
-  const input = document.getElementById('chatInput');
-  const msg = input.value.trim();
-  if (!msg || !APIKEY) { if (!APIKEY) toast('❌ Set API key first!'); return; }
+// ========== CHAT ==========
+function sendChat() {
+  var input = document.getElementById('chatInput');
+  var msg = input.value.trim();
+  if (!msg) return;
+  if (!APIKEY) { showToast('❌ Set API key first!'); return; }
   input.value = '';
   addMsg(msg, 'user');
-  const prompt = `You are BizAI Pro, expert business AI for Indian entrepreneurs. Be helpful, practical, concise. Focus on Indian market, GST, Indian business culture. If user writes Hindi, respond in Hindi.\nUser: ${msg}`;
-  const reply = await groq(prompt);
-  if (reply) addMsg(reply, 'ai');
+  var prompt = 'You are BizAI Pro, expert business AI for Indian entrepreneurs. Be helpful, practical, concise. Focus on Indian market, GST, Indian business culture. User: ' + msg;
+  callAI(prompt, function(reply) { addMsg(reply, 'ai'); });
 }
 
 function addMsg(text, role) {
-  const box = document.getElementById('chatBox');
-  const div = document.createElement('div');
-  div.className = `msg ${role}`;
-  div.innerHTML = `<div class="msg-name">${role==='user'?'You':'BizAI Pro'}</div><div class="msg-bubble">${text}</div>`;
+  var box = document.getElementById('chatBox');
+  var div = document.createElement('div');
+  div.className = 'msg ' + role;
+  div.innerHTML = '<div class="msg-name">' + (role === 'user' ? 'You' : 'BizAI Pro') + '</div><div class="bubble">' + text + '</div>';
   box.appendChild(div);
   box.scrollTop = box.scrollHeight;
 }
 
-async function generateKit() {
-  const name = document.getElementById('kitName').value;
-  const type = document.getElementById('kitType').value;
-  const target = document.getElementById('kitTarget').value;
-  if (!name || !type) { toast('❌ Please fill the fields!'); return; }
+// ========== BUSINESS KIT ==========
+function generateKit() {
+  var name = document.getElementById('kitName').value;
+  var type = document.getElementById('kitType').value;
+  if (!name || !type) { showToast('❌ Please fill the fields!'); return; }
   showLoader('kitLoader');
   document.getElementById('kitResult').style.display = 'none';
-  const r = await groq(`Create complete business kit for Indian market:
-Name: ${name}, Type: ${type}, Target: ${target}
-Format with EXACTLY these headers:
-SLOGAN: [3 catchy slogans]
-BUSINESS_PLAN: [5-point business plan for India]
-SOCIAL_STRATEGY: [strategy for Indian social media]
-EMAIL_TEMPLATE: [professional email template]
-MARKETING_IDEAS: [5 creative marketing ideas for India]`);
-  hideLoader('kitLoader');
-  if (r) {
-    const parse = (key, nextKey) => {
-      const s = r.indexOf(key); const e = nextKey ? r.indexOf(nextKey) : r.length;
+  var prompt = 'Create complete business kit for Indian market:\nName: ' + name + '\nType: ' + type + '\nTarget: ' + document.getElementById('kitTarget').value + '\nFormat with EXACTLY these headers:\nSLOGAN: [3 catchy slogans]\nBUSINESS_PLAN: [5-point plan]\nSOCIAL_STRATEGY: [strategy]\nEMAIL_TEMPLATE: [email template]\nMARKETING_IDEAS: [5 ideas]';
+  callAI(prompt, function(r) {
+    hideLoader('kitLoader');
+    function parse(key, next) {
+      var s = r.indexOf(key); var e = next ? r.indexOf(next) : r.length;
       return s !== -1 ? r.substring(s + key.length, e !== -1 ? e : r.length).trim() : '';
-    };
+    }
     document.getElementById('kitSlogan').textContent = parse('SLOGAN:', 'BUSINESS_PLAN:');
     document.getElementById('kitPlan').textContent = parse('BUSINESS_PLAN:', 'SOCIAL_STRATEGY:');
     document.getElementById('kitSocial').textContent = parse('SOCIAL_STRATEGY:', 'EMAIL_TEMPLATE:');
     document.getElementById('kitEmail').textContent = parse('EMAIL_TEMPLATE:', 'MARKETING_IDEAS:');
     document.getElementById('kitMarketing').textContent = parse('MARKETING_IDEAS:', null);
     document.getElementById('kitResult').style.display = 'block';
-    toast('✅ Business Kit Generated!');
-  }
+    showToast('✅ Business Kit Generated!');
+  });
 }
 
-async function genContent() {
-  const topic = document.getElementById('contentTopic').value;
-  if (!topic) { toast('❌ Enter a topic!'); return; }
-  showLoader('contentLoader'); document.getElementById('contentResult').classList.remove('show');
-  const r = await groq(`Write a professional ${document.getElementById('contentType').value} about "${topic}" for ${document.getElementById('contentAudience').value||'Indian audience'}. Tone: ${document.getElementById('contentTone').value}. Include compelling headline. Make it detailed and ready to publish.`);
-  hideLoader('contentLoader');
-  if (r) showResult('contentResult', 'contentText', r);
+// ========== CONTENT ==========
+function genContent() {
+  var topic = document.getElementById('contentTopic').value;
+  if (!topic) { showToast('❌ Enter a topic!'); return; }
+  showLoader('contentLoader');
+  document.getElementById('contentResult').classList.remove('show');
+  var prompt = 'Write professional ' + document.getElementById('contentType').value + ' about "' + topic + '" for ' + (document.getElementById('contentAudience').value || 'Indian audience') + '. Tone: ' + document.getElementById('contentTone').value + '. Include headline. Make it detailed.';
+  callAI(prompt, function(r) { hideLoader('contentLoader'); showResult('contentResult', 'contentText', r); });
 }
 
-async function genEmail() {
-  const biz = document.getElementById('emailBiz').value;
-  if (!biz) { toast('❌ Enter your business name!'); return; }
-  showLoader('emailLoader'); document.getElementById('emailResult').classList.remove('show');
-  const r = await groq(`Write professional ${document.getElementById('emailType').value} email from "${biz}" to "${document.getElementById('emailTo').value||'potential client'}". Message: ${document.getElementById('emailMsg').value||'introduce services'}. Include subject, greeting, body, CTA, sign-off. Indian business context.`);
-  hideLoader('emailLoader');
-  if (r) showResult('emailResult', 'emailText', r);
+// ========== EMAIL ==========
+function genEmail() {
+  var biz = document.getElementById('emailBiz').value;
+  if (!biz) { showToast('❌ Enter your business name!'); return; }
+  showLoader('emailLoader');
+  document.getElementById('emailResult').classList.remove('show');
+  var prompt = 'Write professional ' + document.getElementById('emailType').value + ' email from "' + biz + '" to "' + (document.getElementById('emailTo').value || 'potential client') + '". Message: ' + (document.getElementById('emailMsg').value || 'introduce services') + '. Include subject, greeting, body, CTA, sign-off.';
+  callAI(prompt, function(r) { hideLoader('emailLoader'); showResult('emailResult', 'emailText', r); });
 }
 
-async function genSocial() {
-  const biz = document.getElementById('socialBiz').value;
-  if (!biz) { toast('❌ Enter your business!'); return; }
-  showLoader('socialLoader'); document.getElementById('socialResult').classList.remove('show');
-  const r = await groq(`Create engaging ${document.getElementById('socialType').value} for ${document.getElementById('socialPlatform').value} for Indian business: "${biz}". Include emojis, relevant hashtags, strong CTA. Optimize for Indian audience and virality.`);
-  hideLoader('socialLoader');
-  if (r) showResult('socialResult', 'socialText', r);
+// ========== SOCIAL ==========
+function genSocial() {
+  var biz = document.getElementById('socialBiz').value;
+  if (!biz) { showToast('❌ Enter your business!'); return; }
+  showLoader('socialLoader');
+  document.getElementById('socialResult').classList.remove('show');
+  var prompt = 'Create engaging ' + document.getElementById('socialType').value + ' post for ' + document.getElementById('socialPlatform').value + ' for Indian business: "' + biz + '". Include emojis, hashtags, CTA.';
+  callAI(prompt, function(r) { hideLoader('socialLoader'); showResult('socialResult', 'socialText', r); });
 }
 
-async function genSales() {
-  const product = document.getElementById('salesProduct').value;
-  if (!product) { toast('❌ Enter your product!'); return; }
-  showLoader('salesLoader'); document.getElementById('salesResult').classList.remove('show');
-  const r = await groq(`Write compelling ${document.getElementById('salesType').value} for "${product}" at ${document.getElementById('salesPrice').value||'competitive price'}. Benefit: ${document.getElementById('salesBenefit').value}. Target Indian customers. Use AIDA formula, create urgency, strong CTA.`);
-  hideLoader('salesLoader');
-  if (r) showResult('salesResult', 'salesText', r);
+// ========== SALES ==========
+function genSales() {
+  var product = document.getElementById('salesProduct').value;
+  if (!product) { showToast('❌ Enter your product!'); return; }
+  showLoader('salesLoader');
+  document.getElementById('salesResult').classList.remove('show');
+  var prompt = 'Write compelling ' + document.getElementById('salesType').value + ' for "' + product + '" at ' + (document.getElementById('salesPrice').value || 'competitive price') + '. Benefit: ' + document.getElementById('salesBenefit').value + '. Target Indian customers. Use AIDA formula.';
+  callAI(prompt, function(r) { hideLoader('salesLoader'); showResult('salesResult', 'salesText', r); });
 }
 
-async function genNames() {
-  const type = document.getElementById('nameType').value;
-  if (!type) { toast('❌ Enter business type!'); return; }
-  showLoader('namesLoader'); document.getElementById('namesResult').style.display = 'none';
-  const r = await groq(`Generate 8 ${document.getElementById('nameStyle').value} business names for: ${type} ${document.getElementById('nameLocation').value?'in '+document.getElementById('nameLocation').value+', India':'in India'}.
-List names only first (one per line, no numbers).
-Then write DETAILS: with tagline and .com domain for each.`);
-  hideLoader('namesLoader');
-  if (r) {
-    const detailsIdx = r.indexOf('DETAILS:');
-    const namesPart = detailsIdx !== -1 ? r.substring(0, detailsIdx) : r;
-    const lines = namesPart.split('\n').map(l => l.replace(/^\d+\.\s*|^[-•*]\s*/,'').trim()).filter(l => l && l.length < 50);
-    const grid = document.getElementById('namesGrid');
+// ========== NAMES ==========
+function genNames() {
+  var type = document.getElementById('nameType').value;
+  if (!type) { showToast('❌ Enter business type!'); return; }
+  showLoader('namesLoader');
+  document.getElementById('namesResult').style.display = 'none';
+  var prompt = 'Generate 8 ' + document.getElementById('nameStyle').value + ' business names for: ' + type + ' in ' + (document.getElementById('nameCity').value || 'India') + '.\nList names only first (one per line).\nThen write DETAILS: with tagline and .com domain for each.';
+  callAI(prompt, function(r) {
+    hideLoader('namesLoader');
+    var di = r.indexOf('DETAILS:');
+    var np = di !== -1 ? r.substring(0, di) : r;
+    var lines = np.split('\n').map(function(l) { return l.replace(/^\d+\.\s*|^[-•*]\s*/, '').trim(); }).filter(function(l) { return l && l.length < 50; });
+    var grid = document.getElementById('namesGrid');
     grid.innerHTML = '';
-    lines.slice(0,8).forEach(name => {
+    lines.slice(0, 8).forEach(function(name) {
       if (name) {
-        const div = document.createElement('div');
+        var div = document.createElement('div');
         div.className = 'name-chip';
         div.textContent = name;
-        div.onclick = () => { navigator.clipboard.writeText(name); toast('📋 Copied: ' + name); };
+        div.onclick = function() { navigator.clipboard.writeText(name); showToast('📋 Copied: ' + name); };
         grid.appendChild(div);
       }
     });
-    if (detailsIdx !== -1) document.getElementById('namesExtra').textContent = r.substring(detailsIdx + 8).trim();
+    if (di !== -1) document.getElementById('namesExtra').textContent = r.substring(di + 8).trim();
     document.getElementById('namesResult').style.display = 'block';
-    toast('✅ Tap a name to copy!');
-  }
+    showToast('✅ Tap a name to copy!');
+  });
 }
 
+// ========== INVOICE ==========
 function genInvoice() {
-  const biz = document.getElementById('invBiz').value;
-  const client = document.getElementById('invClient').value;
-  const amount = parseFloat(document.getElementById('invAmount').value);
-  const gstRate = parseFloat(document.getElementById('invGSTRate').value);
-  if (!biz || !client || !amount) { toast('❌ Fill all fields!'); return; }
-  const now = new Date();
-  const gstAmount = (amount * gstRate / 100);
-  const total = amount + gstAmount;
+  var biz = document.getElementById('invBiz').value;
+  var client = document.getElementById('invClient').value;
+  var amount = parseFloat(document.getElementById('invAmount').value);
+  if (!biz || !client || !amount) { showToast('❌ Fill all fields!'); return; }
+  var gstRate = parseFloat(document.getElementById('invGSTRate').value);
+  var gstAmt = amount * gstRate / 100;
+  var total = amount + gstAmt;
+  var now = new Date();
   document.getElementById('invBizName').textContent = biz;
-  const gstNum = document.getElementById('invGST').value;
-  document.getElementById('invGSTNum').textContent = gstNum ? 'GSTIN: ' + gstNum : '';
-  document.getElementById('invDate').textContent = 'Date: ' + now.toLocaleDateString('en-IN',{year:'numeric',month:'long',day:'numeric'});
-  document.getElementById('invNum').textContent = 'INV-' + now.getFullYear() + '-' + String(Math.floor(Math.random()*9000)+1000);
+  var gst = document.getElementById('invGST').value;
+  document.getElementById('invGSTNum').textContent = gst ? 'GSTIN: ' + gst : '';
+  document.getElementById('invDate').textContent = 'Date: ' + now.toLocaleDateString('en-IN', {year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('invNum').textContent = 'INV-' + now.getFullYear() + '-' + (Math.floor(Math.random() * 9000) + 1000);
   document.getElementById('invClientName').textContent = client;
   document.getElementById('invServiceName').textContent = document.getElementById('invService').value || 'Service';
   document.getElementById('invAmountCell').textContent = '₹' + amount.toLocaleString('en-IN');
-  document.getElementById('invGSTLabel').textContent = gstRate > 0 ? `GST (${gstRate}%)` : '';
-  document.getElementById('invGSTAmount').textContent = gstRate > 0 ? '₹' + gstAmount.toLocaleString('en-IN') : '';
+  document.getElementById('invGSTLabel').textContent = gstRate > 0 ? 'GST (' + gstRate + '%)' : '';
+  document.getElementById('invGSTAmount').textContent = gstRate > 0 ? '₹' + gstAmt.toLocaleString('en-IN') : '';
   document.getElementById('invTotal').textContent = '₹' + total.toLocaleString('en-IN');
   document.getElementById('invoicePreview').classList.add('show');
-  document.getElementById('printBtn').style.display = 'flex';
-  toast('✅ GST Invoice created!');
+  document.getElementById('printBtn').style.display = 'block';
+  showToast('✅ GST Invoice created!');
 }
 
-async function genCompetitor() {
-  const yours = document.getElementById('compYours').value;
-  const rival = document.getElementById('compRival').value;
-  if (!yours || !rival) { toast('❌ Fill all fields!'); return; }
-  showLoader('compLoader'); document.getElementById('compResult').style.display = 'none';
-  const r = await groq(`Analyze Indian market competition:
-My Business: ${yours}
-Competitor: ${rival}
-My Strengths: ${document.getElementById('compStrengths').value||'not specified'}
-Use EXACTLY these headers:
-WEAKNESSES: [5 competitor weaknesses in Indian market]
-STRATEGY: [5 ways to beat them in India]
-TACTICS: [5 Indian market marketing tactics to win]`);
-  hideLoader('compLoader');
-  if (r) {
-    const parse = (key, next) => { const s=r.indexOf(key); const e=next?r.indexOf(next):r.length; return s!==-1?r.substring(s+key.length,e!==-1?e:r.length).trim():''; };
+// ========== COMPETITOR ==========
+function genCompetitor() {
+  var yours = document.getElementById('compYours').value;
+  var rival = document.getElementById('compRival').value;
+  if (!yours || !rival) { showToast('❌ Fill all fields!'); return; }
+  showLoader('compLoader');
+  document.getElementById('compResult').style.display = 'none';
+  var prompt = 'Analyze Indian market competition:\nMy Business: ' + yours + '\nCompetitor: ' + rival + '\nMy Strengths: ' + (document.getElementById('compStrengths').value || 'not specified') + '\nUse EXACTLY these headers:\nWEAKNESSES: [5 weaknesses]\nSTRATEGY: [5 ways to beat them]\nTACTICS: [5 marketing tactics]';
+  callAI(prompt, function(r) {
+    hideLoader('compLoader');
+    function parse(key, next) {
+      var s = r.indexOf(key); var e = next ? r.indexOf(next) : r.length;
+      return s !== -1 ? r.substring(s + key.length, e !== -1 ? e : r.length).trim() : '';
+    }
     document.getElementById('compWeak').textContent = parse('WEAKNESSES:', 'STRATEGY:');
     document.getElementById('compStrategy').textContent = parse('STRATEGY:', 'TACTICS:');
     document.getElementById('compTactics').textContent = parse('TACTICS:', null);
     document.getElementById('compResult').style.display = 'block';
-    toast('✅ Analysis complete!');
-  }
+    showToast('✅ Analysis complete!');
+  });
 }
 
-function copyText(id) {
-  const text = document.getElementById(id).textContent;
-  navigator.clipboard.writeText(text).then(() => toast('📋 Copied!'));
+// ========== COPY ==========
+function copyEl(id) {
+  var text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(function() { showToast('📋 Copied!'); });
 }
 
-function toast(msg) {
-  const el = document.getElementById('toastEl');
+// ========== TOAST ==========
+function showToast(msg) {
+  var el = document.getElementById('toast');
   el.textContent = msg;
-  el.classList.remove('show');
-  setTimeout(() => el.classList.add('show'), 10);
+  el.classList.add('show');
+  setTimeout(function() { el.classList.remove('show'); }, 3000);
 }
 </script>
 </body>
-  </html>
+                                                                                                             </html>
   
