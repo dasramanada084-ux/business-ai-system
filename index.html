@@ -3,603 +3,607 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ultimate Business AI System</title>
+<title>BizAI Pro - Ultimate Business AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
+:root {
+  --bg: #060612;
+  --surface: #0d0d1f;
+  --card: #12122a;
+  --border: #1e1e3f;
+  --accent: #6c63ff;
+  --accent2: #ff6584;
+  --accent3: #43e97b;
+  --text: #e8e8ff;
+  --muted: #6b6b8a;
+  --gold: #ffd700;
+}
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Segoe UI', sans-serif; background: #0a0a1a; color: #fff; min-height: 100vh; }
-
-/* Header */
-.header { background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; }
-.logo { font-size: 20px; font-weight: bold; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.status { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #4ade80; }
-.status-dot { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; animation: pulse 2s infinite; }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-
-/* Hero */
-.hero { text-align: center; padding: 40px 20px 20px; background: linear-gradient(180deg, #1a1a2e, #0a0a1a); }
-.hero h1 { font-size: 28px; font-weight: 800; background: linear-gradient(135deg, #667eea, #764ba2, #f093fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
-.hero p { color: #888; font-size: 14px; max-width: 400px; margin: 0 auto 25px; }
-.hero-stats { display: flex; justify-content: center; gap: 30px; }
+body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 20% 20%, rgba(108,99,255,0.15) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(255,101,132,0.1) 0%, transparent 50%); pointer-events: none; z-index: 0; }
+.header { position: sticky; top: 0; z-index: 100; background: rgba(6,6,18,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; background: linear-gradient(135deg, #6c63ff, #ff6584, #43e97b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.lang-toggle { display: flex; gap: 5px; background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 4px; }
+.lang-btn { padding: 4px 12px; border-radius: 15px; border: none; background: transparent; color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Space Grotesk', sans-serif; }
+.lang-btn.active { background: var(--accent); color: white; }
+.status-badge { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--accent3); font-weight: 500; }
+.pulse { width: 8px; height: 8px; background: var(--accent3); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)} }
+.hero { position: relative; z-index: 1; text-align: center; padding: 35px 20px 20px; }
+.hero-tag { display: inline-block; padding: 5px 15px; background: rgba(108,99,255,0.15); border: 1px solid rgba(108,99,255,0.3); border-radius: 20px; font-size: 11px; color: #a89fff; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 15px; }
+.hero h1 { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; line-height: 1.1; background: linear-gradient(135deg, #fff 0%, #a89fff 50%, #ff6584 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+.hero p { color: var(--muted); font-size: 14px; max-width: 350px; margin: 0 auto 20px; line-height: 1.6; }
+.stats-row { display: flex; justify-content: center; gap: 25px; }
 .stat { text-align: center; }
-.stat-number { font-size: 22px; font-weight: bold; color: #667eea; }
-.stat-label { font-size: 11px; color: #666; }
-
-/* Nav Tabs */
-.nav-tabs { display: flex; overflow-x: auto; padding: 15px 20px; gap: 10px; background: #0f0f1f; border-bottom: 1px solid #222; scrollbar-width: none; }
-.nav-tabs::-webkit-scrollbar { display: none; }
-.tab-btn { padding: 8px 16px; border-radius: 20px; border: 1px solid #333; background: transparent; color: #888; font-size: 13px; cursor: pointer; white-space: nowrap; transition: all 0.3s; }
-.tab-btn.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; border-color: transparent; }
-
-/* Main Content */
-.content { padding: 20px; max-width: 800px; margin: 0 auto; }
-.tab-content { display: none; }
-.tab-content.active { display: block; }
-
-/* Cards */
-.card { background: linear-gradient(135deg, #1a1a2e, #16213e); border: 1px solid #333; border-radius: 15px; padding: 20px; margin-bottom: 20px; }
-.card-title { font-size: 16px; font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
-.card-title span { font-size: 20px; }
-
-/* Input Styles */
-.input-group { margin-bottom: 15px; }
-.input-group label { display: block; font-size: 12px; color: #888; margin-bottom: 6px; }
-.input-group input, .input-group textarea, .input-group select { width: 100%; padding: 12px; background: #0a0a1a; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 14px; outline: none; transition: border-color 0.3s; }
-.input-group input:focus, .input-group textarea:focus { border-color: #667eea; }
-.input-group textarea { height: 100px; resize: vertical; }
-
-/* Buttons */
-.btn { width: 100%; padding: 14px; border-radius: 10px; border: none; font-size: 15px; font-weight: bold; cursor: pointer; transition: all 0.3s; margin-bottom: 10px; }
-.btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
-.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-.btn-secondary { background: linear-gradient(135deg, #f093fb, #f5576c); color: white; }
-.btn-success { background: linear-gradient(135deg, #4ade80, #22c55e); color: #0a0a1a; }
-.btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-/* Result Box */
-.result-box { background: #0a0a1a; border: 1px solid #333; border-radius: 10px; padding: 15px; margin-top: 15px; min-height: 80px; font-size: 14px; line-height: 1.6; color: #ccc; white-space: pre-wrap; display: none; }
-.result-box.show { display: block; }
-
-/* Loading */
-.loading { display: none; text-align: center; padding: 20px; }
-.loading.show { display: block; }
-.spinner { width: 30px; height: 30px; border: 3px solid #333; border-top-color: #667eea; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 10px; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* Tools Grid */
-.tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-.tool-card { background: linear-gradient(135deg, #1a1a2e, #16213e); border: 1px solid #333; border-radius: 12px; padding: 15px; text-align: center; cursor: pointer; transition: all 0.3s; }
-.tool-card:hover { border-color: #667eea; transform: translateY(-2px); }
-.tool-card .icon { font-size: 28px; margin-bottom: 8px; }
-.tool-card .name { font-size: 12px; color: #ccc; font-weight: bold; }
-
-/* API Key Setup */
-.api-setup { background: linear-gradient(135deg, #1a1a2e, #16213e); border: 2px dashed #667eea; border-radius: 15px; padding: 25px; text-align: center; margin-bottom: 20px; }
-.api-setup h3 { color: #667eea; margin-bottom: 10px; }
-.api-setup p { color: #888; font-size: 13px; margin-bottom: 15px; }
-.api-input { display: flex; gap: 10px; }
-.api-input input { flex: 1; padding: 12px; background: #0a0a1a; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 13px; outline: none; }
-.api-input button { padding: 12px 20px; background: linear-gradient(135deg, #667eea, #764ba2); border: none; border-radius: 10px; color: white; font-weight: bold; cursor: pointer; white-space: nowrap; }
-
-/* Badge */
-.badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; }
-.badge-green { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
-.badge-blue { background: rgba(102, 126, 234, 0.2); color: #667eea; }
-.badge-red { background: rgba(245, 87, 108, 0.2); color: #f5576c; }
-
-/* Copy Button */
-.copy-btn { padding: 8px 15px; background: #333; border: none; border-radius: 8px; color: #ccc; font-size: 12px; cursor: pointer; float: right; margin-top: -5px; }
-.copy-btn:hover { background: #444; }
-
-/* Pricing */
-.pricing-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
-.pricing-card { background: linear-gradient(135deg, #1a1a2e, #16213e); border: 1px solid #333; border-radius: 15px; padding: 20px; text-align: center; }
-.pricing-card.featured { border-color: #667eea; position: relative; }
-.pricing-card.featured::before { content: '⭐ POPULAR'; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #667eea, #764ba2); padding: 3px 15px; border-radius: 20px; font-size: 11px; font-weight: bold; }
-.price { font-size: 32px; font-weight: bold; color: #667eea; }
-.price span { font-size: 14px; color: #888; }
-.features-list { list-style: none; text-align: left; margin: 15px 0; }
-.features-list li { padding: 6px 0; font-size: 13px; color: #ccc; border-bottom: 1px solid #222; }
-.features-list li::before { content: '✅ '; }
-
-/* Toast */
-.toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: #4ade80; color: #0a0a1a; padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 13px; display: none; z-index: 1000; }
-.toast.show { display: block; animation: fadeInOut 2s ease; }
-@keyframes fadeInOut { 0% { opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; } }
-
-/* Bottom Nav */
-.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #1a1a2e; border-top: 1px solid #333; display: flex; justify-content: around; padding: 10px 0; z-index: 100; }
-.nav-item { flex: 1; text-align: center; cursor: pointer; padding: 5px; }
-.nav-item .nav-icon { font-size: 22px; }
-.nav-item .nav-label { font-size: 10px; color: #666; margin-top: 2px; }
-.nav-item.active .nav-label { color: #667eea; }
-
-.pb-nav { padding-bottom: 80px; }
+.stat-num { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; color: var(--accent); }
+.stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+.api-setup { position: relative; z-index: 1; margin: 15px 20px; background: linear-gradient(135deg,rgba(108,99,255,.1),rgba(255,101,132,.05)); border: 1px solid rgba(108,99,255,.3); border-radius: 16px; padding: 18px; display: none; }
+.api-setup.show { display: block; }
+.api-setup h3 { font-size: 15px; font-weight: 700; margin-bottom: 5px; color: #a89fff; }
+.api-setup p { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+.api-row { display: flex; gap: 8px; }
+.api-row input { flex: 1; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-size: 13px; outline: none; font-family: 'Space Grotesk', sans-serif; }
+.api-row input:focus { border-color: var(--accent); }
+.api-row button { padding: 10px 18px; background: var(--accent); border: none; border-radius: 10px; color: white; font-weight: 700; font-size: 13px; cursor: pointer; font-family: 'Space Grotesk', sans-serif; }
+.nav { position: relative; z-index: 1; display: flex; overflow-x: auto; padding: 10px 20px; gap: 8px; scrollbar-width: none; }
+.nav::-webkit-scrollbar { display: none; }
+.nav-btn { padding: 8px 16px; border-radius: 25px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.25s; font-family: 'Space Grotesk', sans-serif; }
+.nav-btn.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 0 20px rgba(108,99,255,.3); }
+.content { position: relative; z-index: 1; padding: 10px 20px 100px; max-width: 700px; margin: 0 auto; }
+.tab { display: none; }
+.tab.active { display: block; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 20px; margin-bottom: 15px; }
+.card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.card-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; background: rgba(108,99,255,.15); }
+.card-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; }
+.card-sub { font-size: 12px; color: var(--muted); }
+.field { margin-bottom: 14px; }
+.field label { display: block; font-size: 11px; font-weight: 600; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .5px; }
+.field input, .field textarea, .field select { width: 100%; padding: 12px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; color: var(--text); font-size: 14px; outline: none; font-family: 'Space Grotesk', sans-serif; transition: border-color .2s; }
+.field input:focus, .field textarea:focus { border-color: var(--accent); }
+.field textarea { height: 90px; resize: none; }
+.field select { appearance: none; cursor: pointer; }
+.btn { width: 100%; padding: 14px; border-radius: 12px; border: none; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'Space Grotesk', sans-serif; transition: all .25s; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; }
+.btn-primary { background: linear-gradient(135deg,#6c63ff,#8b83ff); color: white; box-shadow: 0 4px 20px rgba(108,99,255,.3); }
+.btn-pink { background: linear-gradient(135deg,#ff6584,#ff8fa3); color: white; }
+.btn-green { background: linear-gradient(135deg,#43e97b,#38f9d7); color: #060612; }
+.btn-gold { background: linear-gradient(135deg,#ffd700,#ffaa00); color: #060612; }
+.btn:hover { transform: translateY(-1px); }
+.result { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-top: 12px; font-size: 14px; line-height: 1.7; color: #c8c8e8; white-space: pre-wrap; display: none; position: relative; }
+.result.show { display: block; animation: fadeIn .3s ease; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)} }
+.copy-btn { position: absolute; top: 10px; right: 10px; padding: 5px 12px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--muted); font-size: 11px; cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-weight: 600; }
+.loader { display: none; text-align: center; padding: 25px; }
+.loader.show { display: block; }
+.loader-ring { width: 35px; height: 35px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 10px; }
+@keyframes spin { to{transform:rotate(360deg)} }
+.loader p { font-size: 13px; color: var(--muted); }
+.tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+.tool-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px 12px; text-align: center; cursor: pointer; transition: all .25s; }
+.tool-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(108,99,255,.15); }
+.tool-card .t-icon { font-size: 26px; margin-bottom: 8px; }
+.tool-card .t-name { font-size: 12px; font-weight: 700; }
+.tool-card .t-desc { font-size: 10px; color: var(--muted); margin-top: 3px; }
+.chat-box { height: 350px; overflow-y: auto; background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 15px; margin-bottom: 12px; scroll-behavior: smooth; }
+.chat-box::-webkit-scrollbar { width: 4px; }
+.chat-box::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.msg { margin-bottom: 14px; animation: fadeIn .3s ease; }
+.msg.user { text-align: right; }
+.msg-bubble { display: inline-block; max-width: 85%; padding: 10px 14px; border-radius: 14px; font-size: 13px; line-height: 1.6; }
+.msg.user .msg-bubble { background: var(--accent); color: white; border-bottom-right-radius: 4px; }
+.msg.ai .msg-bubble { background: var(--card); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
+.msg-name { font-size: 10px; color: var(--muted); margin-bottom: 4px; font-weight: 600; }
+.chat-input-row { display: flex; gap: 8px; }
+.chat-input-row input { flex: 1; padding: 12px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; color: var(--text); font-size: 14px; outline: none; font-family: 'Space Grotesk', sans-serif; }
+.chat-input-row input:focus { border-color: var(--accent); }
+.send-btn { padding: 12px 18px; background: var(--accent); border: none; border-radius: 12px; color: white; font-size: 18px; cursor: pointer; }
+.invoice-preview { background: white; border-radius: 14px; padding: 20px; margin-top: 12px; color: #111; display: none; }
+.invoice-preview.show { display: block; }
+.inv-header { display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #6c63ff; }
+.inv-title { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; color: #6c63ff; }
+.inv-details { font-size: 12px; color: #666; line-height: 1.8; }
+.inv-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 13px; }
+.inv-table th { background: #6c63ff; color: white; padding: 8px 12px; text-align: left; }
+.inv-table td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+.inv-total { text-align: right; font-size: 16px; font-weight: 700; color: #6c63ff; margin-top: 10px; }
+.pricing-grid { display: grid; gap: 12px; }
+.price-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; position: relative; }
+.price-card.popular { border-color: var(--accent); box-shadow: 0 0 30px rgba(108,99,255,.15); }
+.popular-badge { position: absolute; top: 12px; right: 12px; background: var(--accent); color: white; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 10px; }
+.plan-name { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+.plan-price { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; margin-bottom: 3px; }
+.plan-price span { font-size: 14px; color: var(--muted); font-family: 'Space Grotesk', sans-serif; }
+.plan-desc { font-size: 12px; color: var(--muted); margin-bottom: 15px; }
+.plan-features { list-style: none; margin-bottom: 18px; }
+.plan-features li { font-size: 13px; padding: 5px 0; color: #c8c8e8; border-bottom: 1px solid rgba(255,255,255,.05); display: flex; align-items: center; gap: 8px; }
+.plan-features li::before { content: '✦'; color: var(--accent); font-size: 10px; }
+.names-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+.name-chip { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all .2s; text-align: center; }
+.name-chip:hover { border-color: var(--accent); color: var(--accent); }
+.kit-section { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-top: 8px; }
+.kit-label { font-size: 11px; font-weight: 700; color: var(--accent2); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
+.kit-content { font-size: 13px; line-height: 1.7; color: #c8c8e8; }
+.insight-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-top: 8px; }
+.insight-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--accent3); color: var(--bg); padding: 10px 22px; border-radius: 25px; font-size: 13px; font-weight: 700; display: none; z-index: 999; white-space: nowrap; font-family: 'Space Grotesk', sans-serif; }
+.toast.show { display: block; animation: toastAnim 2.5s ease forwards; }
+@keyframes toastAnim { 0%{opacity:0;transform:translateX(-50%) translateY(10px)}15%{opacity:1;transform:translateX(-50%) translateY(0)}75%{opacity:1}100%{opacity:0} }
 </style>
 </head>
 <body>
 
-<!-- Header -->
 <div class="header">
-  <div class="logo">🤖 BizAI Pro</div>
-  <div class="status"><div class="status-dot"></div>AI Ready</div>
+  <div class="logo">BizAI Pro</div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en',this)">EN</button>
+      <button class="lang-btn" onclick="setLang('bn',this)">বাং</button>
+    </div>
+    <div class="status-badge"><div class="pulse"></div><span>AI Ready</span></div>
+  </div>
 </div>
 
-<!-- Hero -->
 <div class="hero">
-  <h1>Ultimate Business AI</h1>
-  <p>Your complete AI-powered business automation system</p>
-  <div class="hero-stats">
-    <div class="stat"><div class="stat-number">8+</div><div class="stat-label">AI Tools</div></div>
-    <div class="stat"><div class="stat-number">∞</div><div class="stat-label">Content</div></div>
-    <div class="stat"><div class="stat-number">24/7</div><div class="stat-label">Available</div></div>
+  <div class="hero-tag">🚀 Bangladesh's #1 Business AI</div>
+  <h1>Ultimate<br>Business AI</h1>
+  <p>Complete AI-powered business automation. Work smarter, grow faster.</p>
+  <div class="stats-row">
+    <div class="stat"><div class="stat-num">10+</div><div class="stat-label">AI Tools</div></div>
+    <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Content</div></div>
+    <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Available</div></div>
   </div>
 </div>
 
-<!-- Nav Tabs -->
-<div class="nav-tabs">
-  <button class="tab-btn active" onclick="showTab('home')">🏠 Home</button>
-  <button class="tab-btn" onclick="showTab('content')">✍️ Content</button>
-  <button class="tab-btn" onclick="showTab('email')">📧 Email</button>
-  <button class="tab-btn" onclick="showTab('social')">📱 Social</button>
-  <button class="tab-btn" onclick="showTab('sales')">💰 Sales</button>
-  <button class="tab-btn" onclick="showTab('seo')">🔍 SEO</button>
-  <button class="tab-btn" onclick="showTab('pricing')">💎 Pricing</button>
-  <button class="tab-btn" onclick="showTab('settings')">⚙️ Settings</button>
+<div class="api-setup show" id="apiSetup">
+  <h3>🔑 Setup Your AI</h3>
+  <p>Enter your Gemini API Key to unlock all features</p>
+  <div class="api-row">
+    <input type="password" id="apiInput" placeholder="AIza...your key">
+    <button onclick="saveKey()">Save</button>
+  </div>
 </div>
 
-<div class="content pb-nav">
-
-<!-- HOME TAB -->
-<div id="home" class="tab-content active">
-  <div class="api-setup" id="apiSetup">
-    <h3>🔑 Setup Your AI</h3>
-    <p>Enter your Gemini API Key to unlock all features</p>
-    <div class="api-input">
-      <input type="password" id="apiKeyInput" placeholder="AIza...your key here">
-      <button onclick="saveApiKey()">Save</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title"><span>🚀</span> Quick Tools</div>
-    <div class="tools-grid">
-      <div class="tool-card" onclick="showTab('content')">
-        <div class="icon">✍️</div>
-        <div class="name">Content Writer</div>
-      </div>
-      <div class="tool-card" onclick="showTab('email')">
-        <div class="icon">📧</div>
-        <div class="name">Email Writer</div>
-      </div>
-      <div class="tool-card" onclick="showTab('social')">
-        <div class="icon">📱</div>
-        <div class="name">Social Media</div>
-      </div>
-      <div class="tool-card" onclick="showTab('sales')">
-        <div class="icon">💰</div>
-        <div class="name">Sales Copy</div>
-      </div>
-      <div class="tool-card" onclick="showTab('seo')">
-        <div class="icon">🔍</div>
-        <div class="name">SEO Writer</div>
-      </div>
-      <div class="tool-card" onclick="quickIdea()">
-        <div class="icon">💡</div>
-        <div class="name">Business Ideas</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title"><span>📊</span> Why Choose BizAI Pro?</div>
-    <div style="font-size:13px; color:#888; line-height:1.8;">
-      ✅ Save 10+ hours per week<br>
-      ✅ Generate professional content instantly<br>
-      ✅ Write emails that convert<br>
-      ✅ Dominate social media<br>
-      ✅ Boost your sales with AI copy<br>
-      ✅ Rank higher on Google with SEO content
-    </div>
-  </div>
-
-  <div id="ideaResult" class="result-box"></div>
+<div class="nav">
+  <button class="nav-btn active" onclick="showTab('home',this)">🏠 Home</button>
+  <button class="nav-btn" onclick="showTab('chat',this)">🤖 AI Chat</button>
+  <button class="nav-btn" onclick="showTab('kit',this)">🚀 Business Kit</button>
+  <button class="nav-btn" onclick="showTab('content',this)">✍️ Content</button>
+  <button class="nav-btn" onclick="showTab('email',this)">📧 Email</button>
+  <button class="nav-btn" onclick="showTab('social',this)">📱 Social</button>
+  <button class="nav-btn" onclick="showTab('sales',this)">💰 Sales</button>
+  <button class="nav-btn" onclick="showTab('names',this)">✨ Names</button>
+  <button class="nav-btn" onclick="showTab('invoice',this)">🧾 Invoice</button>
+  <button class="nav-btn" onclick="showTab('competitor',this)">🔍 Analyzer</button>
+  <button class="nav-btn" onclick="showTab('pricing',this)">💎 Pricing</button>
+  <button class="nav-btn" onclick="showTab('settings',this)">⚙️ Settings</button>
 </div>
 
-<!-- CONTENT TAB -->
-<div id="content" class="tab-content">
+<div class="content">
+
+<!-- HOME -->
+<div id="home" class="tab active">
+  <div class="tool-grid">
+    <div class="tool-card" onclick="showTab('chat',null)"><div class="t-icon">🤖</div><div class="t-name">AI Chat</div><div class="t-desc">Ask anything</div></div>
+    <div class="tool-card" onclick="showTab('kit',null)"><div class="t-icon">🚀</div><div class="t-name">Business Kit</div><div class="t-desc">1-click setup</div></div>
+    <div class="tool-card" onclick="showTab('content',null)"><div class="t-icon">✍️</div><div class="t-name">Content</div><div class="t-desc">AI writing</div></div>
+    <div class="tool-card" onclick="showTab('email',null)"><div class="t-icon">📧</div><div class="t-name">Email</div><div class="t-desc">Pro emails</div></div>
+    <div class="tool-card" onclick="showTab('names',null)"><div class="t-icon">✨</div><div class="t-name">Name Gen</div><div class="t-desc">Business names</div></div>
+    <div class="tool-card" onclick="showTab('invoice',null)"><div class="t-icon">🧾</div><div class="t-name">Invoice</div><div class="t-desc">Auto billing</div></div>
+    <div class="tool-card" onclick="showTab('social',null)"><div class="t-icon">📱</div><div class="t-name">Social Media</div><div class="t-desc">Viral posts</div></div>
+    <div class="tool-card" onclick="showTab('competitor',null)"><div class="t-icon">🔍</div><div class="t-name">Analyzer</div><div class="t-desc">Beat rivals</div></div>
+  </div>
   <div class="card">
-    <div class="card-title"><span>✍️</span> AI Content Writer</div>
-    <div class="input-group">
-      <label>Content Type</label>
-      <select id="contentType">
-        <option value="blog post">📝 Blog Post</option>
-        <option value="product description">🛍️ Product Description</option>
-        <option value="website about us">🏢 About Us Page</option>
-        <option value="press release">📰 Press Release</option>
-        <option value="newsletter">📬 Newsletter</option>
-      </select>
+    <div class="card-head"><div class="card-icon">⚡</div><div><div class="card-title">Why BizAI Pro?</div><div class="card-sub">Bangladesh's most powerful business AI</div></div></div>
+    <div style="font-size:13px;color:var(--muted);line-height:2;">✦ Save 10+ hours every week<br>✦ Generate professional content instantly<br>✦ Write emails that actually convert<br>✦ Dominate social media effortlessly<br>✦ Create invoices in seconds<br>✦ Analyze competitors & win</div>
+  </div>
+</div>
+
+<!-- CHAT -->
+<div id="chat" class="tab">
+  <div class="card">
+    <div class="card-head"><div class="card-icon">🤖</div><div><div class="card-title">Live AI Assistant</div><div class="card-sub">Ask anything about your business</div></div></div>
+    <div class="chat-box" id="chatBox">
+      <div class="msg ai"><div class="msg-name">BizAI Pro</div><div class="msg-bubble">👋 Hello! I'm your AI business assistant. Ask me anything — marketing, sales, strategy, or any business question! আপনি বাংলায়ও জিজ্ঞেস করতে পারেন!</div></div>
     </div>
-    <div class="input-group">
-      <label>Topic / Business Name</label>
-      <input type="text" id="contentTopic" placeholder="e.g. My Online Store, Digital Marketing Tips">
-    </div>
-    <div class="input-group">
-      <label>Target Audience</label>
-      <input type="text" id="contentAudience" placeholder="e.g. Small business owners, Entrepreneurs">
-    </div>
-    <div class="input-group">
-      <label>Tone</label>
-      <select id="contentTone">
-        <option value="professional">Professional</option>
-        <option value="friendly and casual">Friendly & Casual</option>
-        <option value="persuasive">Persuasive</option>
-        <option value="informative">Informative</option>
-      </select>
-    </div>
-    <button class="btn btn-primary" onclick="generateContent()">✍️ Generate Content</button>
-    <div class="loading" id="contentLoading"><div class="spinner"></div>Writing your content...</div>
-    <div class="result-box" id="contentResult">
-      <button class="copy-btn" onclick="copyResult('contentResult')">📋 Copy</button>
-      <div id="contentResultText"></div>
+    <div class="chat-input-row">
+      <input type="text" id="chatInput" placeholder="Ask your business question..." onkeypress="if(event.key==='Enter')sendChat()">
+      <button class="send-btn" onclick="sendChat()">➤</button>
     </div>
   </div>
 </div>
 
-<!-- EMAIL TAB -->
-<div id="email" class="tab-content">
+<!-- BUSINESS KIT -->
+<div id="kit" class="tab">
   <div class="card">
-    <div class="card-title"><span>📧</span> AI Email Writer</div>
-    <div class="input-group">
-      <label>Email Type</label>
-      <select id="emailType">
-        <option value="cold outreach">Cold Outreach</option>
-        <option value="follow up">Follow Up</option>
-        <option value="sales pitch">Sales Pitch</option>
-        <option value="thank you">Thank You</option>
-        <option value="proposal">Business Proposal</option>
-        <option value="complaint response">Complaint Response</option>
-      </select>
-    </div>
-    <div class="input-group">
-      <label>Your Business</label>
-      <input type="text" id="emailBusiness" placeholder="Your business name">
-    </div>
-    <div class="input-group">
-      <label>Recipient / Company</label>
-      <input type="text" id="emailRecipient" placeholder="Who are you emailing?">
-    </div>
-    <div class="input-group">
-      <label>Key Message</label>
-      <textarea id="emailMessage" placeholder="What do you want to say?"></textarea>
-    </div>
-    <button class="btn btn-primary" onclick="generateEmail()">📧 Write Email</button>
-    <div class="loading" id="emailLoading"><div class="spinner"></div>Writing your email...</div>
-    <div class="result-box" id="emailResult">
-      <button class="copy-btn" onclick="copyResult('emailResult')">📋 Copy</button>
-      <div id="emailResultText"></div>
+    <div class="card-head"><div class="card-icon">🚀</div><div><div class="card-title">One Click Business Kit</div><div class="card-sub">Get everything for your business instantly</div></div></div>
+    <div class="field"><label>Business Name</label><input type="text" id="kitName" placeholder="e.g. Dhaka Digital Agency"></div>
+    <div class="field"><label>Business Type</label><input type="text" id="kitType" placeholder="e.g. Digital Marketing, Restaurant"></div>
+    <div class="field"><label>Target Customers</label><input type="text" id="kitTarget" placeholder="e.g. Small businesses in Dhaka"></div>
+    <button class="btn btn-primary" onclick="generateKit()">🚀 Generate Complete Business Kit</button>
+    <div class="loader" id="kitLoader"><div class="loader-ring"></div><p>Creating your complete business kit...</p></div>
+    <div id="kitResult" style="display:none;">
+      <div class="kit-section"><div class="kit-label">🎯 Slogan</div><div class="kit-content" id="kitSlogan"></div></div>
+      <div class="kit-section"><div class="kit-label">📋 Business Plan</div><div class="kit-content" id="kitPlan"></div></div>
+      <div class="kit-section"><div class="kit-label">📱 Social Strategy</div><div class="kit-content" id="kitSocial"></div></div>
+      <div class="kit-section"><div class="kit-label">📧 Email Template</div><div class="kit-content" id="kitEmail"></div></div>
+      <div class="kit-section"><div class="kit-label">💰 Marketing Ideas</div><div class="kit-content" id="kitMarketing"></div></div>
     </div>
   </div>
 </div>
 
-<!-- SOCIAL TAB -->
-<div id="social" class="tab-content">
+<!-- CONTENT -->
+<div id="content" class="tab">
   <div class="card">
-    <div class="card-title"><span>📱</span> Social Media AI</div>
-    <div class="input-group">
-      <label>Platform</label>
-      <select id="socialPlatform">
-        <option value="Facebook">Facebook</option>
-        <option value="Instagram">Instagram</option>
-        <option value="LinkedIn">LinkedIn</option>
-        <option value="Twitter/X">Twitter/X</option>
-        <option value="TikTok">TikTok</option>
-      </select>
-    </div>
-    <div class="input-group">
-      <label>Post Type</label>
-      <select id="socialType">
-        <option value="promotional post">Promotional Post</option>
-        <option value="educational post">Educational Post</option>
-        <option value="engagement post">Engagement Post</option>
-        <option value="behind the scenes">Behind The Scenes</option>
-        <option value="motivational post">Motivational Post</option>
-      </select>
-    </div>
-    <div class="input-group">
-      <label>Business / Product</label>
-      <input type="text" id="socialBusiness" placeholder="What's your business about?">
-    </div>
-    <button class="btn btn-secondary" onclick="generateSocial()">📱 Create Post</button>
-    <div class="loading" id="socialLoading"><div class="spinner"></div>Creating your post...</div>
-    <div class="result-box" id="socialResult">
-      <button class="copy-btn" onclick="copyResult('socialResult')">📋 Copy</button>
-      <div id="socialResultText"></div>
+    <div class="card-head"><div class="card-icon">✍️</div><div><div class="card-title">AI Content Writer</div><div class="card-sub">Professional content in seconds</div></div></div>
+    <div class="field"><label>Content Type</label><select id="contentType"><option value="blog post">📝 Blog Post</option><option value="product description">🛍️ Product Description</option><option value="about us page">🏢 About Us</option><option value="press release">📰 Press Release</option><option value="newsletter">📬 Newsletter</option><option value="website homepage content">🌐 Website Homepage</option></select></div>
+    <div class="field"><label>Topic / Business</label><input type="text" id="contentTopic" placeholder="What's it about?"></div>
+    <div class="field"><label>Target Audience</label><input type="text" id="contentAudience" placeholder="Who will read this?"></div>
+    <div class="field"><label>Tone</label><select id="contentTone"><option value="professional">Professional</option><option value="friendly and casual">Friendly & Casual</option><option value="persuasive">Persuasive</option><option value="informative">Informative</option><option value="exciting and energetic">Exciting</option></select></div>
+    <button class="btn btn-primary" onclick="genContent()">✍️ Generate Content</button>
+    <div class="loader" id="contentLoader"><div class="loader-ring"></div><p>Writing your content...</p></div>
+    <div class="result" id="contentResult"><button class="copy-btn" onclick="copyText('contentText')">📋 Copy</button><div id="contentText"></div></div>
+  </div>
+</div>
+
+<!-- EMAIL -->
+<div id="email" class="tab">
+  <div class="card">
+    <div class="card-head"><div class="card-icon">📧</div><div><div class="card-title">AI Email Writer</div><div class="card-sub">Emails that get responses</div></div></div>
+    <div class="field"><label>Email Type</label><select id="emailType"><option value="cold outreach">Cold Outreach</option><option value="follow up">Follow Up</option><option value="sales pitch">Sales Pitch</option><option value="thank you">Thank You</option><option value="business proposal">Business Proposal</option><option value="complaint response">Complaint Response</option></select></div>
+    <div class="field"><label>Your Business</label><input type="text" id="emailBiz" placeholder="Your business name"></div>
+    <div class="field"><label>Recipient</label><input type="text" id="emailTo" placeholder="Who are you emailing?"></div>
+    <div class="field"><label>Key Message</label><textarea id="emailMsg" placeholder="What do you want to say?"></textarea></div>
+    <button class="btn btn-primary" onclick="genEmail()">📧 Write Email</button>
+    <div class="loader" id="emailLoader"><div class="loader-ring"></div><p>Writing your email...</p></div>
+    <div class="result" id="emailResult"><button class="copy-btn" onclick="copyText('emailText')">📋 Copy</button><div id="emailText"></div></div>
+  </div>
+</div>
+
+<!-- SOCIAL -->
+<div id="social" class="tab">
+  <div class="card">
+    <div class="card-head"><div class="card-icon">📱</div><div><div class="card-title">Social Media AI</div><div class="card-sub">Posts that go viral</div></div></div>
+    <div class="field"><label>Platform</label><select id="socialPlatform"><option value="Facebook">Facebook</option><option value="Instagram">Instagram</option><option value="LinkedIn">LinkedIn</option><option value="Twitter/X">Twitter/X</option><option value="TikTok">TikTok</option></select></div>
+    <div class="field"><label>Post Type</label><select id="socialType"><option value="promotional post with strong CTA">Promotional</option><option value="educational and informative post">Educational</option><option value="engagement and question post">Engagement</option><option value="behind the scenes authentic post">Behind The Scenes</option><option value="motivational and inspiring post">Motivational</option></select></div>
+    <div class="field"><label>Business / Product</label><input type="text" id="socialBiz" placeholder="What's your business?"></div>
+    <button class="btn btn-pink" onclick="genSocial()">📱 Create Viral Post</button>
+    <div class="loader" id="socialLoader"><div class="loader-ring"></div><p>Creating viral post...</p></div>
+    <div class="result" id="socialResult"><button class="copy-btn" onclick="copyText('socialText')">📋 Copy</button><div id="socialText"></div></div>
+  </div>
+</div>
+
+<!-- SALES -->
+<div id="sales" class="tab">
+  <div class="card">
+    <div class="card-head"><div class="card-icon">💰</div><div><div class="card-title">AI Sales Copy</div><div class="card-sub">Copy that converts</div></div></div>
+    <div class="field"><label>Copy Type</label><select id="salesType"><option value="sales page">Sales Page</option><option value="Facebook ad copy">Facebook Ad</option><option value="landing page headline">Landing Page</option><option value="sales pitch script">Sales Script</option><option value="special offer announcement">Special Offer</option></select></div>
+    <div class="field"><label>Product / Service</label><input type="text" id="salesProduct" placeholder="What are you selling?"></div>
+    <div class="field"><label>Price</label><input type="text" id="salesPrice" placeholder="e.g. ৳999, $29/month"></div>
+    <div class="field"><label>Main Benefit</label><textarea id="salesBenefit" placeholder="What problem does it solve?"></textarea></div>
+    <button class="btn btn-green" onclick="genSales()">💰 Generate Sales Copy</button>
+    <div class="loader" id="salesLoader"><div class="loader-ring"></div><p>Writing sales copy...</p></div>
+    <div class="result" id="salesResult"><button class="copy-btn" onclick="copyText('salesText')">📋 Copy</button><div id="salesText"></div></div>
+  </div>
+</div>
+
+<!-- NAMES -->
+<div id="names" class="tab">
+  <div class="card">
+    <div class="card-head"><div class="card-icon">✨</div><div><div class="card-title">Business Name Generator</div><div class="card-sub">Find the perfect name</div></div></div>
+    <div class="field"><label>Business Type</label><input type="text" id="nameType" placeholder="e.g. Digital Marketing Agency"></div>
+    <div class="field"><label>Your Location</label><input type="text" id="nameLocation" placeholder="e.g. Dhaka, Chittagong"></div>
+    <div class="field"><label>Style</label><select id="nameStyle"><option value="modern and professional">Modern & Professional</option><option value="creative and unique">Creative & Unique</option><option value="Bengali local feel">Bengali / Local Feel</option><option value="international and global">International</option><option value="short and catchy">Short & Catchy</option></select></div>
+    <button class="btn btn-gold" onclick="genNames()">✨ Generate Names</button>
+    <div class="loader" id="namesLoader"><div class="loader-ring"></div><p>Finding perfect names...</p></div>
+    <div id="namesResult" style="display:none;">
+      <div class="names-grid" id="namesGrid"></div>
+      <div class="result show" style="margin-top:12px;"><div id="namesExtra"></div></div>
     </div>
   </div>
 </div>
 
-<!-- SALES TAB -->
-<div id="sales" class="tab-content">
+<!-- INVOICE -->
+<div id="invoice" class="tab">
   <div class="card">
-    <div class="card-title"><span>💰</span> AI Sales Copy</div>
-    <div class="input-group">
-      <label>Copy Type</label>
-      <select id="salesType">
-        <option value="product sales page">Product Sales Page</option>
-        <option value="ad copy">Ad Copy</option>
-        <option value="landing page headline">Landing Page Headline</option>
-        <option value="sales pitch script">Sales Pitch Script</option>
-        <option value="offer description">Offer Description</option>
-      </select>
+    <div class="card-head"><div class="card-icon">🧾</div><div><div class="card-title">Invoice Builder</div><div class="card-sub">Professional invoices instantly</div></div></div>
+    <div class="field"><label>Your Business</label><input type="text" id="invBiz" placeholder="Your Business Name"></div>
+    <div class="field"><label>Client Name</label><input type="text" id="invClient" placeholder="Client Name"></div>
+    <div class="field"><label>Service / Product</label><input type="text" id="invService" placeholder="e.g. Website Design"></div>
+    <div class="field"><label>Amount (৳)</label><input type="number" id="invAmount" placeholder="e.g. 15000"></div>
+    <div class="field"><label>Note</label><input type="text" id="invNote" placeholder="Thank you for your business!"></div>
+    <button class="btn btn-primary" onclick="genInvoice()">🧾 Create Invoice</button>
+    <div id="invoicePreview" class="invoice-preview">
+      <div class="inv-header"><div><div class="inv-title">INVOICE</div><div style="font-size:11px;color:#6c63ff;font-weight:600;" id="invBizName"></div></div><div class="inv-details"><div id="invDate"></div><div id="invNum"></div></div></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:15px;font-size:13px;"><div><strong>Bill To:</strong><br><span id="invClientName" style="color:#6c63ff;font-weight:600;"></span></div><div style="text-align:right;"><strong>Status:</strong><br><span style="color:#43e97b;font-weight:600;">Pending</span></div></div>
+      <table class="inv-table"><tr><th>Description</th><th>Amount</th></tr><tr><td id="invServiceName"></td><td id="invAmountCell"></td></tr></table>
+      <div class="inv-total">Total: <span id="invTotal"></span></div>
+      <div style="margin-top:15px;font-size:12px;color:#888;border-top:1px solid #eee;padding-top:12px;" id="invNoteText"></div>
     </div>
-    <div class="input-group">
-      <label>Product / Service</label>
-      <input type="text" id="salesProduct" placeholder="What are you selling?">
-    </div>
-    <div class="input-group">
-      <label>Price</label>
-      <input type="text" id="salesPrice" placeholder="e.g. $99, $499/month">
-    </div>
-    <div class="input-group">
-      <label>Main Benefit</label>
-      <textarea id="salesBenefit" placeholder="What problem does it solve?"></textarea>
-    </div>
-    <button class="btn btn-success" onclick="generateSales()">💰 Generate Sales Copy</button>
-    <div class="loading" id="salesLoading"><div class="spinner"></div>Writing sales copy...</div>
-    <div class="result-box" id="salesResult">
-      <button class="copy-btn" onclick="copyResult('salesResult')">📋 Copy</button>
-      <div id="salesResultText"></div>
+    <button class="btn btn-green" style="margin-top:10px;display:none;" id="printBtn" onclick="window.print()">🖨️ Print / Save Invoice</button>
+  </div>
+</div>
+
+<!-- COMPETITOR -->
+<div id="competitor" class="tab">
+  <div class="card">
+    <div class="card-head"><div class="card-icon">🔍</div><div><div class="card-title">Competitor Analyzer</div><div class="card-sub">Find weaknesses & beat rivals</div></div></div>
+    <div class="field"><label>Your Business</label><input type="text" id="compYours" placeholder="e.g. Digital Marketing Agency in Dhaka"></div>
+    <div class="field"><label>Competitor</label><input type="text" id="compRival" placeholder="e.g. XYZ Agency"></div>
+    <div class="field"><label>Your Strengths</label><textarea id="compStrengths" placeholder="What makes you different?"></textarea></div>
+    <button class="btn btn-pink" onclick="genCompetitor()">🔍 Analyze & Beat Them</button>
+    <div class="loader" id="compLoader"><div class="loader-ring"></div><p>Analyzing competitors...</p></div>
+    <div id="compResult" style="display:none;">
+      <div class="insight-card"><div class="insight-title">⚠️ Their Weaknesses</div><div id="compWeak" style="font-size:13px;color:#c8c8e8;line-height:1.7;"></div></div>
+      <div class="insight-card"><div class="insight-title">🏆 Your Winning Strategy</div><div id="compStrategy" style="font-size:13px;color:#c8c8e8;line-height:1.7;"></div></div>
+      <div class="insight-card"><div class="insight-title">📣 Marketing Tactics</div><div id="compTactics" style="font-size:13px;color:#c8c8e8;line-height:1.7;"></div></div>
     </div>
   </div>
 </div>
 
-<!-- SEO TAB -->
-<div id="seo" class="tab-content">
+<!-- PRICING -->
+<div id="pricing" class="tab">
   <div class="card">
-    <div class="card-title"><span>🔍</span> SEO Content Writer</div>
-    <div class="input-group">
-      <label>Target Keyword</label>
-      <input type="text" id="seoKeyword" placeholder="e.g. best digital marketing agency">
-    </div>
-    <div class="input-group">
-      <label>Business Type</label>
-      <input type="text" id="seoBusiness" placeholder="e.g. Restaurant, Law Firm, E-commerce">
-    </div>
-    <div class="input-group">
-      <label>Location (optional)</label>
-      <input type="text" id="seoLocation" placeholder="e.g. Dhaka, Bangladesh">
-    </div>
-    <button class="btn btn-primary" onclick="generateSEO()">🔍 Generate SEO Content</button>
-    <div class="loading" id="seoLoading"><div class="spinner"></div>Optimizing for SEO...</div>
-    <div class="result-box" id="seoResult">
-      <button class="copy-btn" onclick="copyResult('seoResult')">📋 Copy</button>
-      <div id="seoResultText"></div>
-    </div>
-  </div>
-</div>
-
-<!-- PRICING TAB -->
-<div id="pricing" class="tab-content">
-  <div class="card">
-    <div class="card-title"><span>💎</span> Choose Your Plan</div>
+    <div class="card-head"><div class="card-icon">💎</div><div><div class="card-title">Choose Your Plan</div><div class="card-sub">Start free, upgrade when ready</div></div></div>
     <div class="pricing-grid">
-      <div class="pricing-card">
-        <div style="font-size:13px; color:#888; margin-bottom:5px;">STARTER</div>
-        <div class="price">$9<span>/month</span></div>
-        <ul class="features-list">
-          <li>50 AI Generations/month</li>
-          <li>Content Writer</li>
-          <li>Email Writer</li>
-          <li>Social Media Posts</li>
-          <li>Email Support</li>
-        </ul>
-        <button class="btn btn-primary" onclick="selectPlan('Starter - $9/month')">Get Started</button>
-      </div>
-      <div class="pricing-card featured">
-        <div style="font-size:13px; color:#667eea; margin-bottom:5px;">PRO</div>
-        <div class="price">$29<span>/month</span></div>
-        <ul class="features-list">
-          <li>Unlimited AI Generations</li>
-          <li>All Content Tools</li>
-          <li>Sales Copy Writer</li>
-          <li>SEO Content Writer</li>
-          <li>Priority Support</li>
-          <li>Business Ideas Generator</li>
-        </ul>
-        <button class="btn btn-primary" onclick="selectPlan('Pro - $29/month')">Get Pro</button>
-      </div>
-      <div class="pricing-card">
-        <div style="font-size:13px; color:#f093fb; margin-bottom:5px;">AGENCY</div>
-        <div class="price">$99<span>/month</span></div>
-        <ul class="features-list">
-          <li>Everything in Pro</li>
-          <li>5 Team Members</li>
-          <li>White Label Option</li>
-          <li>API Access</li>
-          <li>Dedicated Support</li>
-          <li>Custom Integrations</li>
-        </ul>
-        <button class="btn btn-secondary" onclick="selectPlan('Agency - $99/month')">Get Agency</button>
-      </div>
+      <div class="price-card"><div class="plan-name">Free</div><div class="plan-price">৳0<span>/month</span></div><div class="plan-desc">Perfect for getting started</div><ul class="plan-features"><li>5 AI Generations/day</li><li>All 10 Tools Access</li><li>AI Chat (10 msg/day)</li><li>Basic Invoice Builder</li><li>Community Support</li></ul><button class="btn btn-primary" onclick="toast('✅ You are on Free Plan!')">Current Plan</button></div>
+      <div class="price-card popular"><div class="popular-badge">⭐ POPULAR</div><div class="plan-name">Pro</div><div class="plan-price">৳499<span>/month</span></div><div class="plan-desc">For serious business owners</div><ul class="plan-features"><li>Unlimited AI Generations</li><li>All Tools Unlimited</li><li>Unlimited AI Chat</li><li>Full Business Kit</li><li>Competitor Analyzer</li><li>Priority Support</li></ul><button class="btn btn-primary" onclick="toast('📞 Contact us to upgrade!')">Get Pro</button></div>
+      <div class="price-card"><div class="plan-name">Business</div><div class="plan-price">৳9,999<span> once</span></div><div class="plan-desc">Own this entire app!</div><ul class="plan-features"><li>Full App Ownership</li><li>Your Own Branding</li><li>Sell to your clients</li><li>Source Code Included</li><li>Lifetime Updates</li><li>1-on-1 Setup Support</li></ul><button class="btn btn-gold" onclick="toast('📞 Contact us to buy!')">Buy App</button></div>
     </div>
   </div>
 </div>
 
-<!-- SETTINGS TAB -->
-<div id="settings" class="tab-content">
+<!-- SETTINGS -->
+<div id="settings" class="tab">
   <div class="card">
-    <div class="card-title"><span>⚙️</span> Settings</div>
-    <div class="input-group">
-      <label>Gemini API Key</label>
-      <input type="password" id="settingsApiKey" placeholder="AIza...your key">
-    </div>
-    <button class="btn btn-primary" onclick="saveApiKeyFromSettings()">💾 Save API Key</button>
+    <div class="card-head"><div class="card-icon">⚙️</div><div><div class="card-title">Settings</div><div class="card-sub">Configure your AI</div></div></div>
+    <div class="field"><label>Gemini API Key</label><input type="password" id="settingsKey" placeholder="AIza...your key"></div>
+    <button class="btn btn-primary" onclick="saveKeySettings()">💾 Save API Key</button>
   </div>
   <div class="card">
-    <div class="card-title"><span>ℹ️</span> About BizAI Pro</div>
-    <div style="font-size:13px; color:#888; line-height:1.8;">
-      <strong style="color:#fff;">Version:</strong> 1.0.0<br>
-      <strong style="color:#fff;">Powered by:</strong> Google Gemini AI<br>
-      <strong style="color:#fff;">Support:</strong> bizaipro@support.com<br><br>
-      BizAI Pro is the ultimate AI-powered business automation platform designed to help entrepreneurs and businesses grow faster with artificial intelligence.
-    </div>
+    <div class="card-head"><div class="card-icon">ℹ️</div><div><div class="card-title">About BizAI Pro</div><div class="card-sub">Bangladesh's #1 Business AI</div></div></div>
+    <div style="font-size:13px;color:var(--muted);line-height:2;"><span style="color:var(--text);font-weight:600;">Version:</span> 2.0.0<br><span style="color:var(--text);font-weight:600;">Powered by:</span> Google Gemini AI<br><span style="color:var(--text);font-weight:600;">Tools:</span> 10+ AI Tools<br><span style="color:var(--text);font-weight:600;">Languages:</span> English & বাংলা</div>
   </div>
 </div>
 
-</div><!-- end content -->
+</div>
 
-<!-- Toast -->
-<div class="toast" id="toast"></div>
+<div class="toast" id="toastEl"></div>
 
 <script>
-let API_KEY = localStorage.getItem('geminiApiKey') || '';
+let APIKEY = localStorage.getItem('bizai_key') || '';
+let chatHistory = [];
 
-// Check API key on load
-window.onload = function() {
-  if (API_KEY) {
-    document.getElementById('apiSetup').style.display = 'none';
-    document.getElementById('settingsApiKey').value = API_KEY;
+window.onload = () => {
+  if (APIKEY) {
+    document.getElementById('apiSetup').classList.remove('show');
+    document.getElementById('settingsKey').value = APIKEY;
   }
 };
 
-function saveApiKey() {
-  const key = document.getElementById('apiKeyInput').value.trim();
-  if (!key) { showToast('❌ Please enter your API key!'); return; }
-  API_KEY = key;
-  localStorage.setItem('geminiApiKey', key);
-  document.getElementById('apiSetup').style.display = 'none';
-  document.getElementById('settingsApiKey').value = key;
-  showToast('✅ API Key saved! All features unlocked!');
+function setLang(l, btn) {
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
 }
 
-function saveApiKeyFromSettings() {
-  const key = document.getElementById('settingsApiKey').value.trim();
-  if (!key) { showToast('❌ Please enter your API key!'); return; }
-  API_KEY = key;
-  localStorage.setItem('geminiApiKey', key);
-  document.getElementById('apiSetup').style.display = 'none';
-  showToast('✅ API Key updated!');
+function saveKey() {
+  const k = document.getElementById('apiInput').value.trim();
+  if (!k) { toast('❌ Please enter API key!'); return; }
+  APIKEY = k; localStorage.setItem('bizai_key', k);
+  document.getElementById('apiSetup').classList.remove('show');
+  document.getElementById('settingsKey').value = k;
+  toast('✅ API Key saved! All features unlocked!');
 }
 
-function showTab(tabName) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(tabName).classList.add('active');
-  event.target.classList.add('active');
+function saveKeySettings() {
+  const k = document.getElementById('settingsKey').value.trim();
+  if (!k) { toast('❌ Please enter API key!'); return; }
+  APIKEY = k; localStorage.setItem('bizai_key', k);
+  document.getElementById('apiSetup').classList.remove('show');
+  toast('✅ API Key updated!');
 }
 
-async function callGemini(prompt) {
-  if (!API_KEY) { showToast('❌ Please set your API key first!'); return null; }
-  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-  });
-  const data = await response.json();
-  if (data.candidates && data.candidates[0]) {
-    return data.candidates[0].content.parts[0].text;
+function showTab(name, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(name).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+async function gemini(prompt) {
+  if (!APIKEY) { toast('❌ Please set your API key first!'); return null; }
+  try {
+    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${APIKEY}`, {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({contents:[{parts:[{text:prompt}]}]})
+    });
+    const d = await r.json();
+    if (d.candidates?.[0]) return d.candidates[0].content.parts[0].text;
+    return 'Error: ' + (d.error?.message || 'Check your API key');
+  } catch(e) { return 'Connection error. Please try again.'; }
+}
+
+function showLoader(id) { document.getElementById(id).classList.add('show'); }
+function hideLoader(id) { document.getElementById(id).classList.remove('show'); }
+
+function showResult(resultId, textId, text) {
+  document.getElementById(textId).textContent = text;
+  document.getElementById(resultId).classList.add('show');
+}
+
+async function sendChat() {
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim();
+  if (!msg || !APIKEY) { if (!APIKEY) toast('❌ Set API key first!'); return; }
+  input.value = '';
+  addMsg(msg, 'user');
+  const prompt = `You are BizAI Pro, expert business AI for Bangladesh entrepreneurs. Be helpful, practical, concise. If user writes Bengali, respond in Bengali.\nUser: ${msg}`;
+  const reply = await gemini(prompt);
+  if (reply) addMsg(reply, 'ai');
+}
+
+function addMsg(text, role) {
+  const box = document.getElementById('chatBox');
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+  div.innerHTML = `<div class="msg-name">${role==='user'?'You':'BizAI Pro'}</div><div class="msg-bubble">${text}</div>`;
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+async function generateKit() {
+  const name = document.getElementById('kitName').value;
+  const type = document.getElementById('kitType').value;
+  const target = document.getElementById('kitTarget').value;
+  if (!name || !type) { toast('❌ Please fill the fields!'); return; }
+  showLoader('kitLoader');
+  document.getElementById('kitResult').style.display = 'none';
+  const r = await gemini(`Create complete business kit for:
+Name: ${name}, Type: ${type}, Target: ${target}
+Format with these exact headers:
+SLOGAN: [3 catchy slogans]
+BUSINESS_PLAN: [5-point plan]
+SOCIAL_STRATEGY: [3 platform strategy]
+EMAIL_TEMPLATE: [email template]
+MARKETING_IDEAS: [5 creative ideas]`);
+  hideLoader('kitLoader');
+  if (r) {
+    const parse = (key, nextKey) => {
+      const s = r.indexOf(key); const e = nextKey ? r.indexOf(nextKey) : r.length;
+      return s !== -1 ? r.substring(s + key.length, e !== -1 ? e : r.length).trim() : '';
+    };
+    document.getElementById('kitSlogan').textContent = parse('SLOGAN:', 'BUSINESS_PLAN:');
+    document.getElementById('kitPlan').textContent = parse('BUSINESS_PLAN:', 'SOCIAL_STRATEGY:');
+    document.getElementById('kitSocial').textContent = parse('SOCIAL_STRATEGY:', 'EMAIL_TEMPLATE:');
+    document.getElementById('kitEmail').textContent = parse('EMAIL_TEMPLATE:', 'MARKETING_IDEAS:');
+    document.getElementById('kitMarketing').textContent = parse('MARKETING_IDEAS:', null);
+    document.getElementById('kitResult').style.display = 'block';
+    toast('✅ Business Kit Generated!');
   }
-  return 'Error generating content. Please check your API key.';
 }
 
-async function generateContent() {
+async function genContent() {
   const type = document.getElementById('contentType').value;
   const topic = document.getElementById('contentTopic').value;
-  const audience = document.getElementById('contentAudience').value;
-  const tone = document.getElementById('contentTone').value;
-  if (!topic) { showToast('❌ Please enter a topic!'); return; }
-  showLoading('contentLoading');
-  const prompt = `Write a professional ${type} about "${topic}" for ${audience || 'general audience'}. Tone: ${tone}. Make it engaging, detailed, and ready to publish. Include a compelling headline.`;
-  const result = await callGemini(prompt);
-  hideLoading('contentLoading');
-  if (result) { showResult('contentResult', 'contentResultText', result); }
+  if (!topic) { toast('❌ Enter a topic!'); return; }
+  showLoader('contentLoader'); document.getElementById('contentResult').classList.remove('show');
+  const r = await gemini(`Write a professional ${type} about "${topic}" for ${document.getElementById('contentAudience').value||'general audience'}. Tone: ${document.getElementById('contentTone').value}. Include compelling headline. Make it detailed and ready to publish.`);
+  hideLoader('contentLoader');
+  if (r) showResult('contentResult', 'contentText', r);
 }
 
-async function generateEmail() {
-  const type = document.getElementById('emailType').value;
-  const business = document.getElementById('emailBusiness').value;
-  const recipient = document.getElementById('emailRecipient').value;
-  const message = document.getElementById('emailMessage').value;
-  if (!business) { showToast('❌ Please enter your business name!'); return; }
-  showLoading('emailLoading');
-  const prompt = `Write a professional ${type} email from "${business}" to "${recipient || 'potential client'}". Key message: ${message || 'introduce our services'}. Include subject line, greeting, body, and professional sign-off. Make it compelling and action-oriented.`;
-  const result = await callGemini(prompt);
-  hideLoading('emailLoading');
-  if (result) { showResult('emailResult', 'emailResultText', result); }
+async function genEmail() {
+  const biz = document.getElementById('emailBiz').value;
+  if (!biz) { toast('❌ Enter your business name!'); return; }
+  showLoader('emailLoader'); document.getElementById('emailResult').classList.remove('show');
+  const r = await gemini(`Write professional ${document.getElementById('emailType').value} email from "${biz}" to "${document.getElementById('emailTo').value||'potential client'}". Message: ${document.getElementById('emailMsg').value||'introduce services'}. Include subject, greeting, body, CTA, sign-off.`);
+  hideLoader('emailLoader');
+  if (r) showResult('emailResult', 'emailText', r);
 }
 
-async function generateSocial(){
-  const platform = document.getElementById('socialPlatform').value;
-  const type = document.getElementById('socialType').value;
-  const business = document.getElementById('socialBusiness').value;
-  if (!business) { showToast('❌ Please enter your business!'); return; }
-  showLoading('socialLoading');
-  const prompt = `Create an engaging ${type} for ${platform} for this business: "${business}". Include relevant emojis, hashtags, and a strong call-to-action. Optimize for maximum engagement on ${platform}.`;
-  const result = await callGemini(prompt);
-  hideLoading('socialLoading');
-  if (result) { showResult('socialResult', 'socialResultText', result); }
+async function genSocial() {
+  const biz = document.getElementById('socialBiz').value;
+  if (!biz) { toast('❌ Enter your business!'); return; }
+  showLoader('socialLoader'); document.getElementById('socialResult').classList.remove('show');
+  const r = await gemini(`Create engaging ${document.getElementById('socialType').value} for ${document.getElementById('socialPlatform').value} for: "${biz}". Include emojis, hashtags, strong CTA. Optimize for virality.`);
+  hideLoader('socialLoader');
+  if (r) showResult('socialResult', 'socialText', r);
 }
 
-async function generateSales() {
-  const type = document.getElementById('salesType').value;
+async function genSales() {
   const product = document.getElementById('salesProduct').value;
-  const price = document.getElementById('salesPrice').value;
-  const benefit = document.getElementById('salesBenefit').value;
-  if (!product) { showToast('❌ Please enter your product!'); return; }
-  showLoading('salesLoading');
-  const prompt = `Write compelling ${type} for "${product}" priced at ${price || 'competitive price'}. Main benefit: ${benefit || 'saves time and money'}. Use proven copywriting techniques like AIDA, create urgency, highlight benefits over features, and include a strong CTA.`;
-  const result = await callGemini(prompt);
-  hideLoading('salesLoading');
-  if (result) { showResult('salesResult', 'salesResultText', result); }
+  if (!product) { toast('❌ Enter your product!'); return; }
+  showLoader('salesLoader'); document.getElementById('salesResult').classList.remove('show');
+  const r = await gemini(`Write compelling ${document.getElementById('salesType').value} for "${product}" at ${document.getElementById('salesPrice').value||'competitive price'}. Benefit: ${document.getElementById('salesBenefit').value}. Use AIDA formula, create urgency, strong CTA.`);
+  hideLoader('salesLoader');
+  if (r) showResult('salesResult', 'salesText', r);
 }
 
-async function generateSEO() {
-  const keyword = document.getElementById('seoKeyword').value;
-  const business = document.getElementById('seoBusiness').value;
-  const location = document.getElementById('seoLocation').value;
-  if (!keyword) { showToast('❌ Please enter a keyword!'); return; }
-  showLoading('seoLoading');
-  const prompt = `Write SEO-optimized content for keyword "${keyword}" for a ${business || 'business'} ${location ? 'in ' + location : ''}. Include: SEO title, meta description, H1, H2 headings, and 300-word body content. Naturally use the keyword 3-5 times.`;
-  const result = await callGemini(prompt);
-  hideLoading('seoLoading');
-  if (result) { showResult('seoResult', 'seoResultText', result); }
+async function genNames() {
+  const type = document.getElementById('nameType').value;
+  if (!type) { toast('❌ Enter business type!'); return; }
+  showLoader('namesLoader'); document.getElementById('namesResult').style.display = 'none';
+  const r = await gemini(`Generate 8 ${document.getElementById('nameStyle').value} business names for: ${type} ${document.getElementById('nameLocation').value?'in '+document.getElementById('nameLocation').value:''}.
+List names only first (one per line, no numbers).
+Then write DETAILS: with tagline and domain for each.`);
+  hideLoader('namesLoader');
+  if (r) {
+    const detailsIdx = r.indexOf('DETAILS:');
+    const namesPart = detailsIdx !== -1 ? r.substring(0, detailsIdx) : r;
+    const lines = namesPart.split('\n').map(l => l.replace(/^\d+\.\s*|^[-•*]\s*/,'').trim()).filter(l => l && l.length < 50);
+    const grid = document.getElementById('namesGrid');
+    grid.innerHTML = '';
+    lines.slice(0,8).forEach(name => {
+      if (name) {
+        const div = document.createElement('div');
+        div.className = 'name-chip';
+        div.textContent = name;
+        div.onclick = () => { navigator.clipboard.writeText(name); toast('📋 Copied: ' + name); };
+        grid.appendChild(div);
+      }
+    });
+    if (detailsIdx !== -1) document.getElementById('namesExtra').textContent = r.substring(detailsIdx + 8).trim();
+    document.getElementById('namesResult').style.display = 'block';
+    toast('✅ Tap a name to copy!');
+  }
 }
 
-async function quickIdea() {
-  if (!API_KEY) { showToast('❌ Please set your API key first!'); showTab({target: document.querySelector('.tab-btn')}); return; }
-  const result = document.getElementById('ideaResult');
-  result.classList.add('show');
-  result.textContent = '💡 Generating business ideas...';
-  const prompt = 'Give me 5 unique profitable business ideas for 2025. For each idea include: business name, description, target market, and potential monthly revenue. Make them practical and actionable.';
-  const idea = await callGemini(prompt);
-  if (idea) { result.textContent = idea; }
+function genInvoice() {
+  const biz = document.getElementById('invBiz').value;
+  const client = document.getElementById('invClient').value;
+  const amount = document.getElementById('invAmount').value;
+  if (!biz || !client || !amount) { toast('❌ Fill all fields!'); return; }
+  const now = new Date();
+  document.getElementById('invBizName').textContent = biz;
+  document.getElementById('invDate').textContent = 'Date: ' + now.toLocaleDateString('en-BD',{year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('invNum').textContent = 'INV-' + now.getFullYear() + '-' + String(Math.floor(Math.random()*9000)+1000);
+  document.getElementById('invClientName').textContent = client;
+  document.getElementById('invServiceName').textContent = document.getElementById('invService').value || 'Service';
+  document.getElementById('invAmountCell').textContent = '৳' + parseFloat(amount).toLocaleString();
+  document.getElementById('invTotal').textContent = '৳' + parseFloat(amount).toLocaleString();
+  document.getElementById('invNoteText').textContent = document.getElementById('invNote').value || 'Thank you for your business!';
+  document.getElementById('invoicePreview').classList.add('show');
+  document.getElementById('printBtn').style.display = 'flex';
+  toast('✅ Invoice created!');
 }
 
-function selectPlan(plan) {
-  showToast(`✅ You selected: ${plan}`);
+async function genCompetitor() {
+  const yours = document.getElementById('compYours').value;
+  const rival = document.getElementById('compRival').value;
+  if (!yours || !rival) { toast('❌ Fill all fields!'); return; }
+  showLoader('compLoader'); document.getElementById('compResult').style.display = 'none';
+  const r = await gemini(`Analyze:
+My Business: ${yours}
+Competitor: ${rival}
+My Strengths: ${document.getElementById('compStrengths').value||'not specified'}
+
+Use EXACTLY these headers:
+WEAKNESSES: [5 competitor weaknesses]
+STRATEGY: [5 ways to beat them]
+TACTICS: [5 marketing tactics to win]`);
+  hideLoader('compLoader');
+  if (r) {
+    const parse = (key, next) => { const s=r.indexOf(key); const e=next?r.indexOf(next):r.length; return s!==-1?r.substring(s+key.length,e!==-1?e:r.length).trim():''; };
+    document.getElementById('compWeak').textContent = parse('WEAKNESSES:', 'STRATEGY:');
+    document.getElementById('compStrategy').textContent = parse('STRATEGY:', 'TACTICS:');
+    document.getElementById('compTactics').textContent = parse('TACTICS:', null);
+    document.getElementById('compResult').style.display = 'block';
+    toast('✅ Analysis complete!');
+  }
 }
 
-function showLoading(id) { document.getElementById(id).classList.add('show'); }
-function hideLoading(id) { document.getElementById(id).classList.remove('show'); }
-
-function showResult(boxId, textId, text) {
-  const box = document.getElementById(boxId);
-  document.getElementById(textId).textContent = text;
-  box.classList.add('show');
+function copyText(id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => toast('📋 Copied!'));
 }
 
-function copyResult(boxId) {
-  const text = document.getElementById(boxId).querySelector('div').textContent;
-  navigator.clipboard.writeText(text).then(() => showToast('📋 Copied to clipboard!'));
-}
-
-function showToast(msg) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2500);
+function toast(msg) {
+  const el = document.getElementById('toastEl');
+  el.textContent = msg;
+  el.classList.remove('show');
+  setTimeout(() => el.classList.add('show'), 10);
 }
 </script>
 </body>
   </html>
-  
+      
+   
